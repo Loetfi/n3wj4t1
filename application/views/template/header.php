@@ -23,7 +23,6 @@
 
 	<!-- Theme Styles -->
 	<link href="<?php echo base_url('assets/'); ?>css/space.min.css" rel="stylesheet">
-	<link href="<?php echo base_url('assets/'); ?>css/themes/admin2.css" rel="stylesheet">
 	<link href="<?php echo base_url('assets/'); ?>css/custom.css" rel="stylesheet">
 
 	<!-- Datatables --> 
@@ -42,9 +41,9 @@
 
 
 	<link rel="stylesheet" href="http://ido.awanesia.com/assets/plugins/datatables/datatables.bootstrap.css" type="text/css" />
+	
 	<script type="text/javascript" src="http://ido.awanesia.com/assets/plugins/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ido.awanesia.com/assets/plugins/jquery/jquery-cookie.js"></script>
-	<script type="text/javascript" src="http://ido.awanesia.com/assets/plugins/bootstrap/bootstrap.min.js"></script>
 	<script type="text/javascript" src="http://ido.awanesia.com/assets/plugins/datatables/jquery.datatables.min.js"></script>
 	<script type="text/javascript" src="http://ido.awanesia.com/assets/plugins/datatables/datatables.bootstrap.min.js"></script>
 	<script type="text/javascript" src="http://ido.awanesia.com/assets/plugins/datatables/datatables.responsive.min.js"></script>
