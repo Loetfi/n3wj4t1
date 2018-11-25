@@ -18,8 +18,6 @@ class Login extends CI_Controller {
 		// load view contents
 		$view = 'auth/login';
 
-		
-
 		$this->form_validation->set_rules('username', 'User Name', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
 
@@ -46,6 +44,11 @@ class Login extends CI_Controller {
 		
 	}
 
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('auth/login');
+	}
 }
 
 /* End of file Login.php */

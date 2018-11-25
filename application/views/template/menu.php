@@ -107,6 +107,7 @@
 							<i class="menu-icon fa fa-user"></i><span>Pengaturan</span><i class="accordion-icon fa fa-angle-left"></i>
 						</a>
 						<ul class="sub-menu">
+							<li><a href="<?= site_url('manajemen/group') ?>">Manajemen Group</a></li>
 							<li><a href="ui-alerts.html">Manajemen Pengguna</a></li>
 							<li><a href="ui-buttons.html">Pengaturan Sistem</a></li>  
 						</ul>
@@ -154,7 +155,7 @@
 									<li><a href="#"><span class="badge pull-right badge-danger">42</span>Messages</a></li>
 									<li role="separator" class="divider"></li>
 									<li><a href="#">Account Settings</a></li>
-									<li><a href="#">Log Out</a></li>
+									<li><a href="<?= site_url('auth/login') ?>">Log Out</a></li>
 								</ul>
 							</li>
 						</ul>
