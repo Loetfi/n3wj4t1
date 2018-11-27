@@ -25,7 +25,7 @@ class Crud_model extends CI_Model {
 	{
 		$this->db->insert($table, $data);
 		
-		if(!$last_id) {
+		if(!FALSE) {
 			return $this->db->insert_id();
 		} else {
 			return ($this->db->affected_rows() > 0) ? TRUE : FALSE;

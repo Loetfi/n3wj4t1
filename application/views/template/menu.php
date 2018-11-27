@@ -108,7 +108,7 @@
 						</a>
 						<ul class="sub-menu">
 							<li><a href="<?= site_url('manajemen/group') ?>">Manajemen Group</a></li>
-							<li><a href="ui-alerts.html">Manajemen Pengguna</a></li>
+							<li><a href="<?= site_url('manajemen/user') ?>">Manajemen Pengguna</a></li>
 							<li><a href="ui-buttons.html">Pengaturan Sistem</a></li>  
 						</ul>
 					</li> 
@@ -147,7 +147,7 @@
 							<!-- <li><a href="javascript:void(0)" class="right-sidebar-toggle" data-sidebar-id="main-right-sidebar"><i class="fa fa-envelope"></i></a></li>  -->
 							<li class="dropdown user-dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-									<?php echo @$sesi['name']; ?>
+									<?php echo @$this->session->login['username']; ?>
 									<img src="http://steelcoders.com/space/demo/theme/assets/images/avatars/avatar1.jpg" alt="" class="img-circle"></a>
 								<ul class="dropdown-menu">
 									<li><a href="#">Profile</a></li>
