@@ -1,6 +1,6 @@
 <div class="container-fluid">
 	<div class="content">
-		<legend>FORM TAMBAH GROUP</legend>
+		<legend>FORM <?= ($this->uri->segment(3)=='update') ? 'EDIT':'TAMBAH' ?> GROUP</legend>
 
 		<?php if($this->uri->segment(3) == 'create'): ?>
 			<form action="<?= site_url('manajemen/group/create') ?>" method="POST">

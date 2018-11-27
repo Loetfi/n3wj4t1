@@ -6,7 +6,8 @@ class Group extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		//Do your magic here
+		$this->load->library('form_validation');
+		$this->load->model('crud_model','crud');
 	}
 
 	public function index()
@@ -20,9 +21,6 @@ class Group extends CI_Controller {
 
 	public function create()
 	{
-		$this->load->library('form_validation');
-		$this->load->model('crud_model','crud');
-
 		$this->form_validation->set_rules('group_name', 'Nama Group', 'trim|required');
 		if ($this->form_validation->run() == FALSE) {
 			$data['title'] = 'Tambah Group';
@@ -47,9 +45,6 @@ class Group extends CI_Controller {
 
 	public function update($id)
 	{
-		$this->load->library('form_validation');
-		$this->load->model('crud_model','crud');
-
 		$this->form_validation->set_rules('group_name', 'Nama Group', 'trim|required');
 		if ($this->form_validation->run() == FALSE) {
 			$data['title'] = 'Edit Group';
@@ -75,8 +70,6 @@ class Group extends CI_Controller {
 
 	public function delete($id)
 	{
-		$this->load->model('crud_model','crud');
-
 		$this->crud->delete('group',['idgroup'=>$id]);
 		$this->session->set_flashdata(['type'=>'danger','message'=>'Group berhasil dihapus.!']);
 
