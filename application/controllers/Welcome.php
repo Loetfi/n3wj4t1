@@ -20,9 +20,6 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$data['title']	= 'Dashboard';
-		$page = 'welcome_message';
-
-		template($page , $data);
+		redirect('auth/login','refresh');
 	}
 }
