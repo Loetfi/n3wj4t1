@@ -9,6 +9,9 @@
 		</a>
 		<div class="page-sidebar-inner">
 			<div class="page-sidebar-menu">
+				<!-- generate menu -->
+				<?= generate_menu($this->session->login['idgroup']) ?>
+				<!-- 
 				<ul class="accordion-menu">
 					<li class="active-page">
 						<a href="index.html">
@@ -114,6 +117,7 @@
 					</li> 
 
 				</ul>
+				-->
 			</div>
 		</div>
 	</div><!-- /Page Sidebar -->
