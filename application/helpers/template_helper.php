@@ -43,42 +43,45 @@ function generate_menu($idgroup)
 	$list_menu .= '<ul class="accordion-menu">';
 	
 	// parent
-	$parent = $ci->menu->get_menu($idgroup)->result_array();
+	$parent = $ci->menu->get_menu($idgroup,0)->result_array();
 
 	foreach($parent as $key => $value) {
+		$list_menu .= '<li class="active-page">';
+	
+		$list_menu .= '<a href="'.$value['Url'].'">';
+		$list_menu .= '<i class="'.$value['Icon'].'"></i><span>'.$value['Name'].'</span>';
+		$list_menu .= '</a>';
+
+		$list_menu .= '</li>';
+
 		// parent id
-		$menu_id = $value['MenuId'];
+		$parent_id = $value['MenuId'];
 		
-		// child
-		$child = $ci->menu->get_menu_child($menu_id)->result_array();
-		if(count($child) > 1) {
+		// menu 1
+		$menu1 = $ci->menu->get_menu($idgroup,1)->result_array();
+		foreach($menu1 as $k => $v) {
 			$list_menu .='<li>';
-			
+		
 			$list_menu .='<a href="javascript:void(0)">';
-			$list_menu .='<i class="'.$value['Icon'].'"></i><span>'.$value['Name'].'</span>';
+			$list_menu .='<i class="'.$v['Icon'].'"></i><span>'.$v['Name'].'</span>';
 			$list_menu .='<i class="accordion-icon fa fa-angle-left"></i>';
 			$list_menu .='</a>';
 			
 			$list_menu .='<ul class="sub-menu">';
 
-			foreach($child as $k => $v) {
-				$list_menu .='<li>';
-				$list_menu .='<a href="'.$v['Url'].'">'.$v['Name'].'</a>';
-				$list_menu .='</li>';
+			$parent_id = $v['MenuId'];
+			$menu2 = $ci->menu->get_menu($idgroup, 2,$parent_id)->result_array();
+			
+			if(count($menu2) > 0) {
+				foreach ($menu2 as $k2 => $v2) {
+					$list_menu .='<li>';
+					$list_menu .='<a href="'.$v2['Url'].'">'.$v2['Name'].'</a>';
+					$list_menu .='</li>';
+				}
 			}
-
 			$list_menu .='</ul>';
 
 			$list_menu .='</li>';
-
-		} else {
-			$list_menu .= '<li class="active-page">';
-		
-			$list_menu .= '<a href="'.$child[0]['Url'].'">';
-			$list_menu .= '<i class="'.$value['Icon'].'"></i><span>'.$value['Name'].'</span>';
-			$list_menu .= '</a>';
-
-			$list_menu .= '</li>';
 		}
 	}
 

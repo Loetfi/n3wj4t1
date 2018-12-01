@@ -3,28 +3,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Menu_model extends CI_Model {
 
-	public function get_menu($idgroup)
+	public function get_menu($idgroup, $level = null, $parent = null)
 	{
-		return $q = $this->db->select('m.*,
-								ga.GroupId,ga.MenuDetailId,ga.CreateAccess,ga.ReadAccess,ga.UpdateAccess,ga.DeleteAccess')
-							->from('Menu as m')
-							->join('GroupsAccess as ga','m.MenuId = ga.MenuId')
-							->where('ga.GroupId', $idgroup)
-							->where('m.Status','1')
-							->order_by('m.PositionNumber','ASC')
-							->get();
-	}
+		$this->db->select('m.*')
+				->from('Menu as m')
+				->join('GroupsAccess as ga','m.MenuId = ga.MenuId')
+				->where('ga.GroupId', $idgroup)
+				->where('ga.ReadAccess','1')
+				->where('m.Status','1')
+				->order_by('m.PositionNumber','ASC');
 
-	public function get_menu_child($menu_id)
-	{
-		return $q = $this->db->select('*')
-							->from('MenuDetail')
-							->where('MenuId',$menu_id)
-							->order_by('PositionNumber','ASC')
-							->get();
-	}
-	
+		if($level !== null)
+            $this->db->where('m.Level', $level);
 
+        if($parent !== null)
+            $this->db->where('m.ParentId', $parent);
+        
+        $query = $this->db->get();
+
+        return $query;
+	}
 }
 
 /* End of file Menu_model.php */
