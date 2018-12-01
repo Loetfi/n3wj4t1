@@ -11,6 +11,16 @@ class Group_model extends CI_Model {
 			->get()
 			->result_array();
 		return json_encode($q);
+	}
+
+	public function group_menu($idgroup)
+	{
+		return $this->db->select('m.Name, m.Level, ga.*')
+						->from('Menu as m')
+						->join('GroupsAccess as ga','m.MenuId = ga.MenuId')
+						->where('GroupId',$idgroup)
+						->order_by('ga.GroupsAccessId','ASC')
+						->get();
 	}	
 
 }

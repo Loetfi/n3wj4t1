@@ -48,7 +48,7 @@ function generate_menu($idgroup)
 	foreach($parent as $key => $value) {
 		$list_menu .= '<li class="active-page">';
 	
-		$list_menu .= '<a href="'.$value['Url'].'">';
+		$list_menu .= '<a href="'.site_url($value['Url']).'">';
 		$list_menu .= '<i class="'.$value['Icon'].'"></i><span>'.$value['Name'].'</span>';
 		$list_menu .= '</a>';
 
@@ -75,7 +75,7 @@ function generate_menu($idgroup)
 			if(count($menu2) > 0) {
 				foreach ($menu2 as $k2 => $v2) {
 					$list_menu .='<li>';
-					$list_menu .='<a href="'.$v2['Url'].'">'.$v2['Name'].'</a>';
+					$list_menu .='<a href="'.site_url($v2['Url']).'">'.$v2['Name'].'</a>';
 					$list_menu .='</li>';
 				}
 			}
