@@ -34,8 +34,22 @@ class Group extends CI_Controller {
 				'created'		=> date('Y-m-d H:i:s'),
 				'createdby'		=> 'System'
 			];
+			$idgroup = $this->crud->create('group',$data,TRUE);
+			
+			$menu = $this->db->get('Menu')->result_array();
+			$data_group_access = [];
+			foreach ($menu as $key => $value) {
+				$rows['GroupId'] = $idgroup;
+				$rows['MenuId']  = $value['MenuId'];
+				$rows['CreateAccess'] = ($idgroup == 1) ? 1 : 0;
+				$rows['ReadAccess']   = ($idgroup == 1) ? 1 : 0;
+				$rows['UpdateAccess'] = ($idgroup == 1) ? 1 : 0;
+				$rows['DeleteAccess'] = ($idgroup == 1) ? 1 : 0;
+				
+				$data_group_access[] = $rows;
+			}
 
-			$this->crud->create('group',$data);
+			$this->crud->create_batch('GroupsAccess',$data_group_access);
 
 			$this->session->set_flashdata(['type'=>'success','message'=>'Group berhasil ditambahkan.!']);
 
@@ -71,6 +85,7 @@ class Group extends CI_Controller {
 	public function delete($id)
 	{
 		$this->crud->delete('group',['idgroup'=>$id]);
+		$this->crud->delete('GroupsAccess',['GroupId'=>$id]);
 		$this->session->set_flashdata(['type'=>'danger','message'=>'Group berhasil dihapus.!']);
 
 		return redirect('manajemen/group');	

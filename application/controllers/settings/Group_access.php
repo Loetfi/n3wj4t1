@@ -25,7 +25,7 @@ class Group_access extends CI_Controller {
 		$id 		= $this->input->post('id');
 		$access 	= $this->input->post('access'); // value 0,1
 		$access_is 	= $this->input->post('access_is'); // value access_create, access_create, access_update, access_delete 
-
+		// dd($_POST);
 		if($access_is == 'CreateAccess') {
 			$data_access = [
 				'CreateAccess'	=> $access,
@@ -43,7 +43,7 @@ class Group_access extends CI_Controller {
 				'DeleteAccess'	=> $access,
 			];
 		}
-
+		
 		$this->crud->update('GroupsAccess', $data_access, ['GroupsAccessId' => $id]);
 
 		$result['error'] 	= FALSE;

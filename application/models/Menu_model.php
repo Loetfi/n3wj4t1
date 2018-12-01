@@ -23,6 +23,25 @@ class Menu_model extends CI_Model {
 
         return $query;
 	}
+
+	public function get_all()
+	{
+		$this->db->select('MenuId as id, Name as text')
+				->from('Menu')
+				->order_by('MenuId','ASC');
+		$no_parent = array('id' => '0', 'text' => 'No Parent / Root Menu');
+        $result = $this->db->get()->result_array();
+        array_unshift($result, $no_parent);
+
+        return json_encode($result);
+	}
+
+	public function get_level_menu($parent)
+	{
+		$result = $this->db->get_where('Menu',['MenuId' => $parent])->row_array();
+		
+		return $result['Level'] + 1;
+	}
 }
 
 /* End of file Menu_model.php */

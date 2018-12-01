@@ -1,5 +1,6 @@
 <div class="container-fluid">
 	<div class="content">
+        <h3>Setting Group Access</h3>
 		<select class="form-control" style="width: 200px;" onchange="location = this.value">
 			<?php foreach ($group as $key => $value): ?>
 				<option value="<?= site_url('settings/group_access/index/'.$value['idgroup']) ?>"><?= $value['description'] ?></a></option>
