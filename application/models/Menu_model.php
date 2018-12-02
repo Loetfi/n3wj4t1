@@ -28,7 +28,7 @@ class Menu_model extends CI_Model {
 	{
 		$this->db->select('MenuId as id, Name as text')
 				->from('Menu')
-				->order_by('MenuId','ASC');
+				->order_by('PositionNumber','ASC');
 		$no_parent = array('id' => '0', 'text' => 'No Parent / Root Menu');
         $result = $this->db->get()->result_array();
         array_unshift($result, $no_parent);

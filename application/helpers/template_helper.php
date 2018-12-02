@@ -42,46 +42,67 @@ function generate_menu($idgroup)
 	$list_menu = '';
 	$list_menu .= '<ul class="accordion-menu">';
 	
-	// parent
-	$parent = $ci->menu->get_menu($idgroup,0)->result_array();
+	// level1
+	$menu1 = $ci->menu->get_menu($idgroup,1)->result_array();
 
-	foreach($parent as $key => $value) {
-		$list_menu .= '<li class="active-page">';
-	
-		$list_menu .= '<a href="'.site_url($value['Url']).'">';
-		$list_menu .= '<i class="'.$value['Icon'].'"></i><span>'.$value['Name'].'</span>';
-		$list_menu .= '</a>';
-
-		$list_menu .= '</li>';
-
-		// parent id
+	foreach($menu1 as $key => $value) {
 		$parent_id = $value['MenuId'];
-		
-		// menu 1
-		$menu1 = $ci->menu->get_menu($idgroup,1)->result_array();
-		foreach($menu1 as $k => $v) {
+		// level 2
+		$menu2 = $ci->menu->get_menu($idgroup,2, $parent_id)->result_array();
+		if(count($menu2) > 0) {
+			// level 1 with child
 			$list_menu .='<li>';
-		
+	
 			$list_menu .='<a href="javascript:void(0)">';
-			$list_menu .='<i class="'.$v['Icon'].'"></i><span>'.$v['Name'].'</span>';
+			$list_menu .='<i class="'.$value['Icon'].'"></i><span>'.$value['Name'].'</span>';
 			$list_menu .='<i class="accordion-icon fa fa-angle-left"></i>';
 			$list_menu .='</a>';
 			
 			$list_menu .='<ul class="sub-menu">';
+			foreach ($menu2 as $k2 => $v2) {
+				// level 3
+				$parent_id = $v2['MenuId'];
+				$menu3 = $ci->menu->get_menu($idgroup,3,$parent_id)->result_array();
 
-			$parent_id = $v['MenuId'];
-			$menu2 = $ci->menu->get_menu($idgroup, 2,$parent_id)->result_array();
+				if(count($menu3) > 0) {
+					// level 1 with child and cucu
+					$list_menu .='<li>';
 			
-			if(count($menu2) > 0) {
-				foreach ($menu2 as $k2 => $v2) {
+					$list_menu .='<a href="javascript:void(0)">';
+					$list_menu .='<i class="'.$v2['Icon'].'"></i><span>'.$v2['Name'].'</span>';
+					$list_menu .='<i class="accordion-icon fa fa-angle-left"></i>';
+					$list_menu .='</a>';
+					
+					$list_menu .='<ul class="sub-menu">';
+
+					foreach($menu3 as $k3 => $v3) {
+						$list_menu .='<li>';
+						$list_menu .='<a href="'.site_url($v3['Url']).'">'.$v3['Name'].'</a>';
+						$list_menu .='</li>';
+					}
+
+					$list_menu .='</ul>';
+
+					$list_menu .='</li>';
+				} else {
 					$list_menu .='<li>';
 					$list_menu .='<a href="'.site_url($v2['Url']).'">'.$v2['Name'].'</a>';
-					$list_menu .='</li>';
+					$list_menu .='</li>';	
 				}
 			}
+
 			$list_menu .='</ul>';
 
 			$list_menu .='</li>';
+		} else {
+			// level 1 with no child
+			$list_menu .= '<li class="active-page">';
+
+			$list_menu .= '<a href="'.site_url($value['Url']).'">';
+			$list_menu .= '<i class="'.$value['Icon'].'"></i><span>'.$value['Name'].'</span>';
+			$list_menu .= '</a>';
+
+			$list_menu .= '</li>';
 		}
 	}
 

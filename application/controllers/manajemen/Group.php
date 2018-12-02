@@ -45,6 +45,7 @@ class Group extends CI_Controller {
 				$rows['ReadAccess']   = ($idgroup == 1) ? 1 : 0;
 				$rows['UpdateAccess'] = ($idgroup == 1) ? 1 : 0;
 				$rows['DeleteAccess'] = ($idgroup == 1) ? 1 : 0;
+				$rows['Status'] 	  = ($idgroup == 1) ? 1 : 0;
 				
 				$data_group_access[] = $rows;
 			}

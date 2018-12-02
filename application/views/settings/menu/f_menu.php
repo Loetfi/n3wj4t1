@@ -29,7 +29,7 @@
 				<tr>
                     <td width="200px"><b>Urutan Ke</b> * </td>
                     <td>
-						<input type="text" name="PositionNumber" class="form-control" value="<?=isset($menu['PositionNumbe'])?$menu['PositionNumbe']:set_value('PositionNumbe');?>" required>
+						<input type="text" name="PositionNumber" class="form-control" value="<?=isset($menu['PositionNumber'])?$menu['PositionNumber']:set_value('PositionNumber');?>" required>
                     </td>
 				</tr>
 				<tr>

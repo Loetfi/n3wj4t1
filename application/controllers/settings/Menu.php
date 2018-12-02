@@ -47,7 +47,7 @@ class Menu extends CI_Controller {
 			$parent = $this->input->post('ParentId');
 
 			if($parent == 0) {
-				$data_menu['Level'] = 0;
+				$data_menu['Level'] = 1;
 			} else {
 				$data_menu['Level'] = $this->menu->get_level_menu($parent);
 			}
@@ -63,6 +63,7 @@ class Menu extends CI_Controller {
 				$rows['ReadAccess']   = ($value['idgroup'] == 1) ? 1 : 0;
 				$rows['UpdateAccess'] = ($value['idgroup'] == 1) ? 1 : 0;
 				$rows['DeleteAccess'] = ($value['idgroup'] == 1) ? 1 : 0;
+				$rows['Status'] 	  = ($value['idgroup'] == 1) ? 1 : 0;
 				
 				$data_group_access[] = $rows;
 			}
@@ -82,6 +83,56 @@ class Menu extends CI_Controller {
 			return redirect('settings/menu');	
  
 		}
+	}
+
+	public function update($id)
+	{
+		$this->form_validation->set_rules('Name', 'Menu', 'trim|required');
+		$this->form_validation->set_rules('Url', 'Url', 'trim|required');
+		if ($this->form_validation->run() == FALSE) {
+			$data['title'] = 'Edit Menu';
+			$data['list_menu'] = $this->menu->get_all();
+			$data['menu'] = $this->crud->get_by_cond('Menu',['MenuId'=>$id])->row_array();
+			$page = 'settings/menu/f_menu';
+
+			$this->session->set_flashdata(['type'=>'error','message'=>validation_errors()]);
+
+			template($page, $data);
+		} else {
+			$this->db->trans_begin();
+
+			$data_menu = [
+				'Name' 			=> $this->input->post('Name'),
+				'Url' 			=> $this->input->post('Url'),
+				'ParentId' 		=> $this->input->post('ParentId'),
+				'Icon' 			=> $this->input->post('Icon'),
+				'PositionNumber' => $this->input->post('PositionNumber'),
+				'Name' 			=> $this->input->post('Name'),
+				'Status' 		=> 1,
+				'WebsiteID'		=> 'newido'
+			];
+			
+			$parent = $this->input->post('ParentId');
+
+			if($parent == 0) {
+				$data_menu['Level'] = 1;
+			} else {
+				$data_menu['Level'] = $this->menu->get_level_menu($parent);
+			}
+
+			$this->crud->update('Menu',$data_menu,['MenuId'=>$id]);
+
+			if ($this->db->trans_status() === FALSE) {
+	            $this->db->trans_rollback();
+				
+				$this->session->set_flashdata(['type'=>'success','message'=>'Menu gagal diperbaharui.!']);
+	        } else {
+	        	$this->db->trans_commit();
+				
+				$this->session->set_flashdata(['type'=>'success','message'=>'Menu berhasil diperbaharui.!']);
+	        }
+			return redirect('settings/menu');
+        }
 	}
 
 	public function delete($id)
@@ -147,7 +198,7 @@ class Menu extends CI_Controller {
 		/*Lanjutkan pencarian ke database*/
 		$this->db->limit($length,$start);
 		/*Urutkan dari alphabet paling terkahir*/
-		$this->db->order_by('MenuId','ASC');
+		$this->db->order_by('PositionNumber','ASC');
 		$query=$this->db->get('Menu');
 
 		/*Ketika dalam mode pencarian, berarti kita harus mengatur kembali nilai 
@@ -175,7 +226,7 @@ class Menu extends CI_Controller {
                 break;
             }
 			$output['data'][]= array(
-				$nomor_urut,
+				// $nomor_urut,
 				$nbsp.$value['Name'] ,
 				$value['Url'] ,
 				"<a href='".site_url('settings/menu/update/'.$value['MenuId'])."' class='btn btn-xs btn-default'> <span class='glyphicon glyphicon-pencil'></span>  Edit</a>
@@ -184,7 +235,7 @@ class Menu extends CI_Controller {
 				"
 			);
 			// $output['data'][]=array($nomor_urut,$desa['tglorder']);
-			$nomor_urut++;
+			// $nomor_urut++;
 		}
 
 		echo json_encode($output);

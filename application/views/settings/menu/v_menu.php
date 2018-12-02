@@ -19,7 +19,7 @@
 		<table class="table table-striped" id="myTable">
 			<thead>
 				<tr>
-					<th style="width:7%">No</th>
+					<!-- <th style="width:7%">No</th> -->
 					<th>Name</th>
 					<th>Url</th>
 					<th style="width: 15%">Aksi</th>
@@ -34,6 +34,7 @@
         ordering: true,
         processing: true,
         serverSide: true,
+        lengthMenu: [[50, 100, -1], [50, 100, "All"]],
         ajax: {
             url: "<?php echo site_url('settings/menu/get_data') ?>",
             type:'POST',
