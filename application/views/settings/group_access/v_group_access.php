@@ -3,7 +3,10 @@
         <h3>Setting Group Access</h3>
 		<select class="form-control" style="width: 200px;" onchange="location = this.value">
 			<?php foreach ($group as $key => $value): ?>
-				<option value="<?= site_url('settings/group_access/index/'.$value['idgroup']) ?>"><?= $value['description'] ?></a></option>
+				<option value="<?= site_url('settings/group_access/index/'.$value['idgroup']) ?>" 
+                    <?=($this->uri->segment(4) == $value['idgroup'] ) ? 'selected':''?>>
+                    <?= $value['description'] ?></a>
+                </option>
 			<?php endforeach ?>
 		</select>
 		<table class="table table-striped" id="myTable">
