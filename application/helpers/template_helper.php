@@ -96,7 +96,8 @@ function generate_menu($idgroup)
 			$list_menu .='</li>';
 		} else {
 			// level 1 with no child
-			$list_menu .= '<li class="active-page">';
+			// $list_menu .= '<li class="active-page">';
+			$list_menu .= '<li>';
 
 			$list_menu .= '<a href="'.site_url($value['Url']).'">';
 			$list_menu .= '<i class="'.$value['Icon'].'"></i><span>'.$value['Name'].'</span>';
