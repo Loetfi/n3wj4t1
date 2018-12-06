@@ -16,7 +16,10 @@ class Qr extends CI_Controller {
 		// die();
 
     // outputs image directly into browser, as PNG stream
-		QRcode::png('1000'.rand(0,1000), $PNG_TEMP_DIR.'test3.png', 'L', 4, 2);
+		$nama_file = rand(1,1111);
+		echo $path = base_url('qrcode/'.$nama_file.'.png');
+		$param = $this->input->get('param');
+		QRcode::png($param, $PNG_TEMP_DIR.$nama_file.'.png', 'L', 4, 2);
 
 		// $tempDir = APPPATH.'../qrcode';
 		// file_get_contents('oke.png', QRcode::png('PHP QR Code :)'));
