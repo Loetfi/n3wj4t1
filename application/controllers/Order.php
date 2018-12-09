@@ -77,7 +77,7 @@ class Order extends CI_Controller {
 
 	public function prosesbook()
 	{
-		echo "<pre>";
+
 		if (isset($_POST)) {
 			// echo "<pre>";
 			// print_r($_POST);
@@ -558,7 +558,7 @@ class Order extends CI_Controller {
 			endforeach;
 
 
-			$this->session->set_flashdata('message_system', '<div class="alert alert-success"> Berhasil Menambahkan Data </div>');
+			$this->session->set_flashdata('message_system', '<div class="alert alert-success"> Berhasil Menambah Orderan Baru</div>');
 
 			// menghapus nama project 
 			$this->session->unset_userdata('projectname');
