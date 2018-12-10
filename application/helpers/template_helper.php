@@ -51,14 +51,27 @@ function generate_menu($idgroup)
 		$menu2 = $ci->menu->get_menu($idgroup,2, $parent_id)->result_array();
 		if(count($menu2) > 0) {
 			// level 1 with child
-			$list_menu .='<li>';
+			if($value['Name'] == 'Order') {
+				$list_menu .= '<li class="open">';
+				$list_menu .='<a href="javascript:void(0)">';
+				
+				$list_menu .='<i class="'.$value['Icon'].' active"></i><span>'.$value['Name'].'</span>';
+				
+				$list_menu .='<i class="accordion-icon fa fa-angle-left"></i>';
+				$list_menu .='</a>';
+
+				$list_menu .='<ul class="sub-menu" style="display:block;">';
+			} else {
+				$list_menu .= '<li>';
+				$list_menu .='<a href="javascript:void(0)">';
+				
+				$list_menu .='<i class="'.$value['Icon'].'"></i><span>'.$value['Name'].'</span>';
+				$list_menu .='<i class="accordion-icon fa fa-angle-left"></i>';
+				$list_menu .='</a>';
+
+				$list_menu .='<ul class="sub-menu">';
+			}
 	
-			$list_menu .='<a href="javascript:void(0)">';
-			$list_menu .='<i class="'.$value['Icon'].'"></i><span>'.$value['Name'].'</span>';
-			$list_menu .='<i class="accordion-icon fa fa-angle-left"></i>';
-			$list_menu .='</a>';
-			
-			$list_menu .='<ul class="sub-menu">';
 			foreach ($menu2 as $k2 => $v2) {
 				// level 3
 				$parent_id = $v2['MenuId'];
@@ -85,7 +98,12 @@ function generate_menu($idgroup)
 
 					$list_menu .='</li>';
 				} else {
-					$list_menu .='<li>';
+					// set active menu
+					if($value['Name'] == 'Order') {
+						$list_menu .='<li class="animation active">';
+					} else {
+						$list_menu .='<li class="animation">';
+					}
 					$list_menu .='<a href="'.site_url($v2['Url']).'">'.$v2['Name'].'</a>';
 					$list_menu .='</li>';	
 				}
