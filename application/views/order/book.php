@@ -59,7 +59,7 @@
 
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                       <table class="table table-striped">
+                     <table class="table table-striped">
                         <tr>
                             <td colspan="6"><b>COVER</b></td>
                         </tr>
@@ -163,13 +163,6 @@
                             <input type="text" name="detailhalaman1" class="form-control format-number" required="">
                         </td>
                     </tr>
-                </table>
-            </div>
-        </div>
-
-        <div class="panel panel-primary">
-            <div class="panel-body">
-                <table class="table table-striped">
                     <tr>
                         <td><b>Cetak Isi *</b></td>
                         <td>
@@ -204,6 +197,15 @@
                                 </div>
                             </td>
                         </tr>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <table class="table table-striped">
+                    
                         <tr>
                             <td><b>Mesin *</b></td>
                             <td>
@@ -221,14 +223,7 @@
                             <input type="text" name="detailhalaman2" class="form-control format-number" required="">
                         </td>
                     </tr>
-                </table>
-            </div>
-        </div>
-
-        <div class="panel panel-primary">
-            <div class="panel-body">
-                <table class="table table-striped">
-                   <tr>
+                 <tr>
                     <td><b>Cetak Isi *</b></td>
                     <td>
                         <div class="form-group">
@@ -266,9 +261,23 @@
                         <td><b>Finishing *</b> </td>
                         <td colspan="4">
                             <div class="form-group"> 
-                                <?php foreach ($finishing as $fin) {?>
-                                    <input type="checkbox" name="finishing[]" value="<?php echo $fin['idfinishing']; ?>"> <?php echo $fin['namafinishing']; ?> &nbsp;&nbsp;
-                                <?php } ?> 
+                               <?php 
+                                            foreach ($finishing as $fin) {
+                                                if (($fin['idfinishing'] % 2) == 1)
+                                                { 
+                                                    echo '<div class="col-sm-6">';
+                                                    echo '<input type="checkbox" name="finishing[]" value="'.$fin['idfinishing'].'">'.$fin['namafinishing'] ;
+                                                    echo '</div>';
+                                                }
+
+                                                if (($fin['idfinishing'] % 2) == 0)
+                                                { 
+                                                    echo '<div class="col-sm-6">';
+                                                    echo '<input type="checkbox" name="finishing[]" value="'.$fin['idfinishing'].'">'.$fin['namafinishing'] ;
+                                                    echo '</div>';
+                                                }
+                                          }
+                                          ?>
                             </div>
                         </td>
                     </td>
