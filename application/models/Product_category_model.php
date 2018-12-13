@@ -11,6 +11,16 @@ class Product_category_model extends CI_Model {
 							->get();
 	}
 
+	public function get_all()
+	{
+		$q = $this->db->select('idproduct_category as id, name as text ')
+			->from('product_category')
+			->order_by('idproduct_category','ASC')
+			->get()
+			->result_array();
+		return json_encode($q);
+	}
+
 }
 
 /* End of file Product_category.php */

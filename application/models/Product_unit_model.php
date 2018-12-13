@@ -11,6 +11,16 @@ class Product_unit_model extends CI_Model {
 							->get();
 	}
 
+	public function get_all()
+	{
+		$q = $this->db->select('idproduct_unit as id, name as text ')
+			->from('product_unit')
+			->order_by('idproduct_unit','ASC')
+			->get()
+			->result_array();
+		return json_encode($q);
+	}
+
 }
 
 /* End of file Product_unit_model.php */
