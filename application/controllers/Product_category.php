@@ -147,7 +147,7 @@ class Product_category extends CI_Controller {
 		yang mengandung keyword tertentu
 		*/
 		if($search!=""){
-			$where = "p.name like '%$search%'  ";
+			$where = "pc.name like '%$search%'  ";
 			$this->db->where($where);
 			$jum= $this->db->select('pc.*')
 				->from('product_category as pc')
