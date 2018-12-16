@@ -36,7 +36,7 @@
         processing: true,
         serverSide: true,
         ajax: {
-            url: "<?php echo site_url('customer/get_data') ?>",
+            url: "<?php echo site_url('customer/get_datatables') ?>",
             type:'POST',
         }
     });

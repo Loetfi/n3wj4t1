@@ -99,7 +99,7 @@ class Customer extends CI_Controller {
 
 	}
 
-	public function get_data()
+	public function get_datatables()
 	{
 		/*Menagkap semua data yang dikirimkan oleh client*/
 
@@ -197,7 +197,7 @@ class Customer extends CI_Controller {
 		echo json_encode($output);
 	}
 
-	/*
+	
 	public function get_data(){
 		$limit = 20;
 		$q = $this->input->get("term");
@@ -230,7 +230,6 @@ class Customer extends CI_Controller {
 		);
 		echo json_encode($results);
 	}
-	*/
 
 }
 
