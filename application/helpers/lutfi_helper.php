@@ -94,4 +94,14 @@ function dd() {
     echo $ctx;
     die;
 }
+
+function finishingsatu($finishingid) {
+	$replace = str_replace(',', "','", $finishingid);
+	$ci = &get_instance();
+	$query = $ci->db->query("
+			SELECT GROUP_CONCAT(namafinishing order by namafinishing ASC SEPARATOR  ', ') as concat_finishing from msfinishing where idfinishing in ('$replace')  and status = 1  ")->row_array(); 
+	// return $ci->db->last_query();die();
+	return $query['concat_finishing'];
+}
+
 ?>
