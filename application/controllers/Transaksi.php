@@ -11,9 +11,7 @@ class Transaksi extends CI_Controller {
 	}
 
 	public function ambildata()
-	{ 
-
-
+	{
 		/*Menagkap semua data yang dikirimkan oleh client*/
 
 		/*Sebagai token yang yang dikrimkan oleh client, dan nantinya akan
