@@ -7,7 +7,7 @@
 		<?php echo $inv['phone']; ?><hr>
 
 		<h4>Project Name: <?php echo @$inv['projectname']; ?></h4>
-		<img src="<?=base_url('assets/qrcode/'.$qrcode)?>" class="img img-rounded" style="width: 120px; height: 120px;">
+		<img src="<?php echo @$qrcode; ?>" class="img img-rounded" style="width: 120px; height: 120px;">
 		<table class="table table-striped">
 			<thead>
 				<tr>

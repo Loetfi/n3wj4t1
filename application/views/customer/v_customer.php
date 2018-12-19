@@ -8,7 +8,7 @@
 		  	</div>
 		<?php endif ?>
 
-		<a class='btn btn-xs btn-default' style="margin-left: 1000px;"
+		<a class='btn btn-xs btn-default' class="text-right"
 		href="<?= site_url('customer/create') ?>"> 
 			<span class='glyphicon glyphicon-plus'></span>  
 			 Tambah

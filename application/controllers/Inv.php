@@ -3,8 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 // use Endroid\QrCode\ErrorCorrectionLevel;
 // use Endroid\QrCode\LabelAlignment;
-use Endroid\QrCode\QrCode;
+// use Endroid\QrCode\QrCode;
 // use Endroid\QrCode\Response\QrCodeResponse;
+
+require_once APPPATH.'../phpqrcode/qrlib.php';
+
 
 class Inv extends CI_Controller {
 
@@ -21,6 +24,15 @@ class Inv extends CI_Controller {
 
 	public function detail($trorderid)
 	{
+		$PNG_TEMP_DIR = dirname(__FILE__).DIRECTORY_SEPARATOR.'../../qrcode'.DIRECTORY_SEPARATOR;
+		// die();
+
+    // outputs image directly into browser, as PNG stream
+		$nama_file = $trorderid;
+		$path = base_url('qrcode/'.$nama_file.'.png');
+		$param = @$trorderid;
+		QRcode::png($param, $PNG_TEMP_DIR.$nama_file.'.png', 'L', 4, 2);
+
 		$order = $this->crud->get_by_cond('trorder',['trorderid'=>$trorderid])->row_array();
 
 		if($order['qrcode'] == NULL) {
@@ -41,7 +53,7 @@ class Inv extends CI_Controller {
 			SELECT * 
 			FROM inv_list_view 
 			WHERE trorderid = '".@$trorderid."'
-		")->row_array();
+			")->row_array();
 		
 		if ($data['inv']['tipeorder'] == 'card'){
 			$namaTableView = "inv_kartunama_detail_view";
@@ -64,9 +76,9 @@ class Inv extends CI_Controller {
 			SELECT * 
 			FROM ".$namaTableView."
 			WHERE trorderid = '".@$trorderid."'
-		")->result_array();
+			")->result_array();
 
-		$data['qrcode'] = $order['qrcode'];
+		$data['qrcode'] = base_url('qrcode/'.$nama_file.'.png');// $order['qrcode'];
 
 		$data['title'] = 'Detail Invoice';
 
