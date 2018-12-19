@@ -22,7 +22,9 @@
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 
-		<?php if (count($data)>0) { ?>
+		<?php if ($this->input->post('qr')) { ?>
+		
+		<?php if (!empty(@$data)) { ?>
 			<br><br>
 			<div class="alert alert-info">
 				Dibawah ini adalah hasil dari scan
@@ -56,7 +58,7 @@
 				Maaf, QR tidak ditemukan.
 			</div>
 
-		<?php } ?>
+		<?php } }?>
 	</div>
 </div>
 
