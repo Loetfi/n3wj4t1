@@ -46,7 +46,7 @@
 						<td><?php echo $data['tipeorder']; ?></td>
 						<td>Rp. <?php echo number_format($data['totalharga']); ?></td>
 						<td>
-							<a href="" class="btn btn-sm btn-primary">Cetak Tagihan</a>
+							<a href="<?php echo site_url('inv/fullpage_invoice/'.@$data['trorderid']) ?>" target="_blank" class="btn btn-sm btn-primary">Cetak Tagihan</a>
 							<a href="" class="btn btn-sm btn-success"> Surat Jalan</a>
 						</td>
 					</tr>
