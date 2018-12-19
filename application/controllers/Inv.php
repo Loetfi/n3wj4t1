@@ -91,6 +91,52 @@ class Inv extends CI_Controller {
 		template($page,$data);	
 	}
 
+	public function fullpage_invoice($trorderid = null)
+	{
+		$data['inv'] = $this->db->query("
+			SELECT * 
+			FROM inv_list_view 
+			WHERE trorderid = '".@$trorderid."'
+			")->row_array();
+		
+		if ($data['inv']['tipeorder'] == 'card'){
+			$namaTableView = "inv_kartunama_detail_view";
+			
+		}
+		else if ($data['inv']['tipeorder'] == 'book'){
+			$namaTableView = "inv_book_detail_view";
+			
+		}
+
+		else if ($data['inv']['tipeorder'] == 'pod'){
+			$namaTableView = "inv_pod_detail_view";
+		}
+
+		else if ($data['inv']['tipeorder'] == 'okl'){
+			$namaTableView = "inv_book_detail_view";
+		}
+		
+		$data['item'] = $this->db->query("
+			SELECT * 
+			FROM ".$namaTableView."
+			WHERE trorderid = '".@$trorderid."'
+			")->result_array();
+
+		// Create QR CODE
+		$PNG_TEMP_DIR = dirname(__FILE__).DIRECTORY_SEPARATOR.'../../qrcode'.DIRECTORY_SEPARATOR;
+		// die();
+
+    	// outputs image directly into browser, as PNG stream
+		$nama_file = $trorderid;
+		$path = base_url('qrcode/'.$nama_file.'.png');
+		$param = @$trorderid;
+		QRcode::png($param, $PNG_TEMP_DIR.$nama_file.'.png', 'L', 4, 2);
+
+		$data['qrcode'] = $path;// $order['qrcode'];
+
+		$this->load->view('v_fullpage_invoice',$data);
+	}
+
 	public function get_data()
 	{
 		/*Menagkap semua data yang dikirimkan oleh client*/
