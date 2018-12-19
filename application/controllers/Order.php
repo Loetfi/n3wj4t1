@@ -81,6 +81,7 @@ class Order extends CI_Controller {
 		if (isset($_POST)) {
 			// echo "<pre>";
 			// print_r($_POST);
+			// die();
  
 
 
@@ -113,6 +114,41 @@ class Order extends CI_Controller {
 			// print_r($this->cart->contents());
 		}
 		else {
+			redirect('order','refresh');
+		}
+	}
+
+	// preview card 
+	public function previewbook()
+	{ 
+
+		if (isset($_POST)) {
+
+			$header = array(
+				'customerid' 	=> $this->session->userdata('idcustomer'),//$items['options']['0']['idcustomer'], 
+				'tipeorder' => 'card',
+				'deadline' => @date('Y-m-d',strtotime($this->input->get('deadline'))),
+				'projectname'	=> $this->session->userdata('projectname'),
+				'tglorder'		=> date('Y-m-d H:i:s')
+			);
+
+			$array = array(
+				'cardheader' => $header
+			);
+			
+			$this->session->set_userdata( $array ); 
+
+			$data = array(
+				'title' => 'Preview Order Book'
+				);
+
+			$page = 'order/previewbook';
+
+			template($page , $data);
+			
+			// $this->load->view('order/headerbaru', $data, FALSE);
+ 
+		} else {
 			redirect('order','refresh');
 		}
 	}

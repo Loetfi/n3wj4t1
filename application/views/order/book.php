@@ -6,7 +6,7 @@
     <div id="main-wrapper">
         <!-- <div class="row"> -->
             <?php echo $this->session->flashdata('message_system'); ?> 
-            <form action="<?php echo site_url('order/prosesbook/') ?>" method="POST">
+            <form action="<?php echo site_url('order/prosesbook/') ?>" method="POST" target="_blank">
                 <input type="hidden" name="orderdate" readonly="" value="<?php echo date('d F Y'); ?>" class="form-control">
 
                 <div class="panel panel-primary">
@@ -150,6 +150,7 @@
                                     <td><b>Mesin *</b></td>
                                     <td>
                                         INDIGO
+                                        <input type="hidden" name="mesinisi1" value="1">
                         <!-- <div class="form-group">
                             <?php foreach ($mesin as $msn) { ?>
                             <input type="radio" name="mesinisi1" value="<?php echo $msn['idmesin']; ?>" checked="">
@@ -211,6 +212,7 @@
                             <td>
                                 <div class="form-group">
                                     OCE
+                                    <input type="hidden" name="mesinisi2" value="3" checked="">
                             <!-- <?php foreach ($mesin as $msn) { ?>
                                 <input type="radio" name="mesinisi2" value="<?php echo $msn['idmesin']; ?>" checked="">
                                 <span class="labels"><?php echo $msn['namamesin']; ?></span>
@@ -446,7 +448,7 @@
                                 <td>Detail Halaman Isi 2 </td>
                                 <td>:</td>
                                 <td>
-                                    <?php echo $items['options']['mesinisi1']; ?> 
+                                    <?php echo $items['options']['detailhalaman2']; ?> 
                                 </td>
                             </tr>
                             <tr>
@@ -483,7 +485,7 @@
                             <?php $i++; ?>
                         <?php endforeach; ?> 
                     </table>
-                    <?php $disabled = ""; $link = site_url('order/savebook?projectname='.@$_GET['projectname'].'&tipeorder='.@$_GET['tipeorder'].'&deadline='.@$_GET['deadline']); if (count($this->cart->contents()) == 0 ) { $disabled = 'disabled=""'; $link = "#"; } ?>
+                    <?php $disabled = ""; $link = site_url('order/previewbook?projectname='.@$_GET['projectname'].'&tipeorder='.@$_GET['tipeorder'].'&deadline='.@$_GET['deadline']); if (count($this->cart->contents()) == 0 ) { $disabled = 'disabled=""'; $link = "#"; } ?>
                     <a <?php echo $disabled; ?> href="<?php echo $link; ?>" class="btn btn-success">Proses Keranjang</a>
                 </div>
             </div>
