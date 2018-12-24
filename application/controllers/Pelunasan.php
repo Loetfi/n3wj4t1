@@ -13,7 +13,7 @@ class Pelunasan extends CI_Controller {
 
 	public function index()
 	{
-		// dd($this->session->all_userdata());
+		read_access();
 		$data['title'] = 'Bayar Pelunasan';
 		$data['list_customer'] = $this->customer->get_all_select2();
 		$page = 'pembayaran/pelunasan/v_pelunasan';

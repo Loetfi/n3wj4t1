@@ -13,6 +13,8 @@ class Order extends CI_Controller {
 
 	public function card()
 	{  
+		read_access();
+
 		$data['title'] = 'Order Kartu Nama';
 		// $data_header['subtitle'] = "";
 		// $azapp->set_data_header($data_header);
@@ -52,7 +54,7 @@ class Order extends CI_Controller {
 	public function book()
 	{ 
 		// $data = array();
-
+		read_access();
 
 		$data['title'] = 'Order Buku';
 
@@ -268,6 +270,7 @@ class Order extends CI_Controller {
 	#### POD 
 	public function pod()
 	{	
+		read_access();
 		$data['title'] = "Order POD";
 
 		$data['ukuran'] = $this->db->query('select * from msukuran')->result_array();

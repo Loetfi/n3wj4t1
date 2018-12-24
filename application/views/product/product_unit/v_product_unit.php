@@ -8,6 +8,8 @@
 		  	</div>
 		<?php endif ?>
 
+		<h4>List Product Unit</h4>
+		<hr>
 		<a class='btn btn-sm btn-default'
 		href="<?= site_url('product_unit/create') ?>"> 
 			<span class='glyphicon glyphicon-plus'></span>  

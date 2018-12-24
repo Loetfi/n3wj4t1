@@ -12,6 +12,7 @@ class Group_access extends CI_Controller {
 
 	public function index($idgroup = null)
 	{
+		read_access();
 		$data['title'] 	= 'Setting Group Access';
 		$data['group'] 	= $this->db->order_by('idgroup','ASC')->get('group')->result_array();
 		$idgroup = $idgroup ? $idgroup : 1;

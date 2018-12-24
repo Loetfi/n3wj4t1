@@ -8,6 +8,8 @@
 		  	</div>
 		<?php endif ?>
 
+		<h4>List Customer</h4>
+		<hr>
 		<a class='btn btn-sm btn-default'
 		href="<?= site_url('customer/create') ?>"> 
 			<span class='glyphicon glyphicon-plus'></span>  

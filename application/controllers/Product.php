@@ -16,6 +16,7 @@ class Product extends CI_Controller {
 
 	public function index()
 	{
+		read_access();
 		$data['title'] = 'Data Produk';
 
 		$page = 'product/product_data/v_product_data';

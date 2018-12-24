@@ -13,7 +13,8 @@ class Down_payment extends CI_Controller {
 
 	public function index()
 	{
-		// dd($this->session->all_userdata());
+		read_access();
+		
 		$data['title'] = 'Bayar Down Payment';
 		$data['list_customer'] = $this->customer->get_all_select2();
 		$page = 'pembayaran/down_payment/v_down_payment';

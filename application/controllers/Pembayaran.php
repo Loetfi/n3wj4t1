@@ -11,6 +11,7 @@ class Pembayaran extends CI_Controller {
 	}
 
 	public function index(){
+		read_access();
 		// redirect('pembayaran/dp');
 		$data['list'] = $this->db->query("
 			SELECT

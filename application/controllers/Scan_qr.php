@@ -13,6 +13,7 @@ class Scan_qr extends CI_Controller {
 
 	public function index()
 	{
+		read_access();
 		$data['title'] = 'Scan QR';
 
 		$page = 'scan/qr';

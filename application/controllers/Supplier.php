@@ -13,6 +13,7 @@ class Supplier extends CI_Controller {
 
 	public function index()
 	{
+		read_access();
 		$data['title'] = 'Data Produk';
 
 		$page = 'supplier/v_supplier';

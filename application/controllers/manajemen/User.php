@@ -14,6 +14,7 @@ class User extends CI_Controller {
 
 	public function index()
 	{
+		read_access();
 		$data['title'] = 'Manajemen Pengguna';
 
 		$page = 'manajemen/user/v_user';

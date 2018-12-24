@@ -12,6 +12,7 @@ class Work_order extends CI_Controller {
 
 	public function index()
 	{
+		read_access();
 		$data['title'] = 'Work order';
 
 		$page = 'work_order/v_work_order';

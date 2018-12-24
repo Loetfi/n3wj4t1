@@ -13,6 +13,7 @@ class Product_unit extends CI_Controller {
 
 	public function index()
 	{
+		read_access();
 		$data['title'] = 'Unit Produk';
 
 		$page = 'product/product_unit/v_product_unit';

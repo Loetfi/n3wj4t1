@@ -13,6 +13,7 @@ class Menu extends CI_Controller {
 
 	public function index()
 	{
+		read_access();
 		$data['title'] = 'Setting Menu';
 
 		$page = 'settings/menu/v_menu';

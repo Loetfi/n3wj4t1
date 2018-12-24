@@ -1,20 +1,22 @@
 <div class="container-fluid">
-	<div class='row'>
+	<!-- <div class='row'>
 		<div class='col-md-12 breadcumb'>
 			<div class="breadcumb-content">
-			ORDER                    </div>
+			ORDER                    
+			</div>
 		</div> 
-	</div>
+	</div> -->
 	<div class="row">
 		<div class="col-md-12">
 			<div class="content">
-				<div class="row">
+				<h4>List Transaksi</h4>
+				<!-- <div class="row">
                     <div class="col-md-6">
                         <select id="idcustomer" name="idcustomer" required="" class="form-control select select2-ajax" width="48"></select>
                     </div>
 				</div>
                 
-                <br>
+                <br> -->
 				<table class="table table-striped table-desa">
 					<thead>
 						<tr><th style="width:50px">No</th>

@@ -8,7 +8,9 @@
 		  	</div>
 		<?php endif ?>
 
-		<a class='btn btn-xs btn-default' style="margin-left: 1000px;"
+		<h4>List Group</h4>
+		<hr>
+		<a class='btn btn-xs btn-default'
 		href="<?= site_url('manajemen/group/create') ?>"> 
 			<span class='glyphicon glyphicon-plus'></span>  
 			 Tambah

@@ -13,6 +13,7 @@ class Product_category extends CI_Controller {
 
 	public function index()
 	{
+		read_access();
 		$data['title'] = 'Kategori Produk';
 
 		$page = 'product/product_category/v_product_category';

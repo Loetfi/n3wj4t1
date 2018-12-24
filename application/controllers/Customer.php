@@ -13,6 +13,7 @@ class Customer extends CI_Controller {
 
 	public function index()
 	{
+		read_access();
 		$data['title'] = 'Customer';
 
 		$page = 'customer/v_customer';

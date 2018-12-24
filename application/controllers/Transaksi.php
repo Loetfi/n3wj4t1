@@ -108,6 +108,7 @@ class Transaksi extends CI_Controller {
 
 	public function index()
 	{
+		read_access();
 		$data['title'] = "List Order";
 		// $this->load->library('AZApp');
 		// $azapp = $this->azapp; 

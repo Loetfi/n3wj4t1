@@ -104,4 +104,28 @@ function finishingsatu($finishingid) {
 	return $query['concat_finishing'];
 }
 
+function read_access() {
+	$ci = &get_instance();
+
+	$idgroup = $ci->session->login['idgroup'];
+	
+	$url =  $ci->uri->segment(1);
+	if(!is_null($ci->uri->segment(2))) {
+		$url = $ci->uri->segment(1) .'/'. $ci->uri->segment(2);
+	}
+
+	$module = $ci->db->query("
+		SELECT m.Url, ga.ReadAccess, ga.GroupId
+			FROM Menu AS m
+			LEFT JOIN GroupsAccess ga ON m.MenuId = ga.MenuId
+			WHERE ga.GroupId = '$idgroup' AND m.Url = '$url'
+		")->row_array();
+        
+    $grant_access = $module['ReadAccess'];
+
+    if($grant_access == 0){
+        show_404();
+    }
+}
+
 ?>

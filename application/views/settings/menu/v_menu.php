@@ -8,8 +8,8 @@
 		  	</div>
 		<?php endif ?>
 
-		<h3>Settings Menu</h3>
-
+		<h4>Settings Menu</h4>
+		<hr>
 		<a class='btn btn-sm btn-default'
 		href="<?= site_url('settings/menu/create') ?>"> 
 			<span class='glyphicon glyphicon-plus'></span>  

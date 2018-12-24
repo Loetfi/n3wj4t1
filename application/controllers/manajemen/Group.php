@@ -12,6 +12,7 @@ class Group extends CI_Controller {
 
 	public function index()
 	{
+		read_access();
 		$data['title'] = 'Manajemen Group';
 
 		$page = 'manajemen/group/v_group';

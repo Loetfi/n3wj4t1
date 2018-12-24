@@ -20,7 +20,7 @@ class Menu_model extends CI_Model {
             $this->db->where('m.ParentId', $parent);
         
         $query = $this->db->get();
-
+        
         return $query;
 	}
 
