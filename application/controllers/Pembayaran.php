@@ -52,6 +52,7 @@ class Pembayaran extends CI_Controller {
 		template($page , $data);
 
 	}
+
 	public function dpAct(){
 		$idcustomer  = $_POST['idcustomer'];
 		$tipebayar  = $_POST['tipebayar'];
@@ -128,13 +129,9 @@ class Pembayaran extends CI_Controller {
 		$data['pembayaran'] = $pembayaran;
 		$data['pembayarandetail'] = $pembayarandetail;
 		$data['detailCustomer'] = $detailCustomer;
-		// echo '<pre>';
-		// print_r($pembayaran);
-		// print_r($pembayarandetail);
-		// print_r($detailCustomer);
-		// print_r($pembayarandetail);
-		$this->load->view('order/headerbaru', @$data, FALSE);
-		$this->load->view('pembayaran/detail', @$data, FALSE);
+		// dd($data);
+		$page = 'pembayaran/d_pembayaran';
+		template($page , $data);
 	}
 	
 	public function bukti($trorderid){

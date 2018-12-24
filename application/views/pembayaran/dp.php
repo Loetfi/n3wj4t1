@@ -182,6 +182,7 @@ jQuery('#idcustomer').change(function(){
 		}
 	});
 });
+
 jQuery("#btnCoba").click(function() {
 	$('#myModal').modal('show');
 });
