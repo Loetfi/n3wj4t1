@@ -229,7 +229,7 @@
                     <td><b>Cetak Isi *</b></td>
                     <td>
                         <div class="form-group">
-                            <?php $no=0; foreach ($cetak as $cet) { ?>
+                            <?php $no=0; foreach ($cetak_oce as $cet) { ?>
                                 <label class="radio-inline">
                                     <input type="radio" name="cetakisimesin" value="<?php echo $cet['idattributecetak']; ?>" <?php echo ($no==0?'checked=""':''); ?> >
                                     <?php echo $cet['attributecetak']; ?>

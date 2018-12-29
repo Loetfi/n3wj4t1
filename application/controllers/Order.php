@@ -20,7 +20,7 @@ class Order extends CI_Controller {
 		// $azapp->set_data_header($data_header);
 		$data['sales'] = $this->db->query('select * from mssales')->result_array();
 		// lemparan  
-		$data['cetak'] = $this->db->query('select * from msattrcetak')->result_array();
+		$data['cetak'] = $this->db->query('select * from msattrcetak where isoce = 0')->result_array();
 		// print_r($data['cetak']);
 		// exit();
 		$data['finishing'] = $this->db->query('select * from msfinishing')->result_array();
@@ -197,7 +197,8 @@ class Order extends CI_Controller {
 		$data['title'] = 'Order Buku';
 
 		$data['ukuran'] = $this->db->query('select * from msukuran')->result_array();
-		$data['cetak'] = $this->db->query('select * from msattrcetak')->result_array();
+		$data['cetak'] = $this->db->query('select * from msattrcetak where isoce = 0')->result_array();
+		$data['cetak_oce'] = $this->db->query('select * from msattrcetak where isoce = 1')->result_array();
 		$data['sales'] = $this->db->query('select * from mssales')->result_array();
 		$data['finishing'] = $this->db->query('select * from msfinishing')->result_array();
 		$data['laminating'] = $this->db->query('select * from mslaminating')->result_array();	
@@ -423,7 +424,7 @@ class Order extends CI_Controller {
 		$data['mesin'] = $this->db->query("SELECT * from msmesin where status = 1 and pod = 1")->result_array();
 
 		// lemparan 
-		$data['cetak'] = $this->db->query('select * from msattrcetak')->result_array();
+		$data['cetak'] = $this->db->query('select * from msattrcetak where isoce = 0')->result_array();
 		// print_r($data['cetak']);
 		// exit();
 		$data['finishing'] = $this->db->query('select * from msfinishing')->result_array();
@@ -629,7 +630,7 @@ class Order extends CI_Controller {
 		$data['mesin'] = $this->db->query("SELECT * from msmesin where status = 1 and pod = 1")->result_array();
 
 		// lemparan 
-		$data['cetak'] = $this->db->query('select * from msattrcetak')->result_array();
+		$data['cetak'] = $this->db->query('select * from msattrcetak where isoce = 0')->result_array();
 		// print_r($data['cetak']);
 		// exit();
 		$data['finishing'] = $this->db->query('select * from msfinishing')->result_array();
