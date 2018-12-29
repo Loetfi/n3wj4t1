@@ -71,7 +71,8 @@
                             <?php $i++; ?>
                             <?php endforeach; ?> 
                         </table>
-                        <a href="<?php echo site_url('work_order'); ?>" class="btn btn-default">Kembali</a>
+                        <a href="<?php echo site_url('work_order'); ?>" class="btn btn-default btn-sm">Kembali</a>
+                        <a href="<?php echo site_url('cetak/wo/'.$order['trorderid']); ?>" class="btn btn-success btn-sm" target="_blank">Cetak WO</a>
                     </div>
                 </div>
                 <br>

@@ -20,7 +20,7 @@ class Work_order extends CI_Controller {
 		template($page,$data);
 	}
 
-	public function detail($trorderid)
+	public function detail($trorderid = null)
 	{
 		$data['title'] = 'Detail Work order';
 		$data['order'] = $this->crud->get_by_cond('trorder',['trorderid'=>$trorderid])->row_array();
