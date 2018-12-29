@@ -1,6 +1,6 @@
 <div class="container-fluid">
 	<div class="content">
-		<legend>FORM <?= ($this->uri->segment(2)=='update') ? 'EDIT':'TAMBAH' ?> KATEGORI PRODUK</legend>
+		<legend>FORM <?= ($this->uri->segment(2)=='update') ? 'EDIT':'TAMBAH' ?> UKURAN</legend>
 
 		<?php if($this->uri->segment(2) == 'create'): ?>
 			<form action="<?= site_url('ukuran/create') ?>" method="POST">
