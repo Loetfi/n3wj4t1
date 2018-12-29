@@ -154,6 +154,8 @@ class Transaksi extends CI_Controller {
 			$page = 'transaksi/detailbook';
 		} elseif ($querycek['tipeorder'] == "pod") {
 			$page = 'transaksi/detailpod';
+		} elseif ($querycek['tipeorder'] == "okl") {
+			$page = 'transaksi/detailokl';
 		} else {
 			echo "Tipe order tidak ada";
 			die();
