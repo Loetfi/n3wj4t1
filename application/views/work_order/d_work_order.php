@@ -5,6 +5,7 @@
                 <legend>Detail Work Order <?=$order['projectname']?></legend>
                 <div class="panel panel-success">
                     <div class="panel-body">
+                        <?php //print_r($order); ?>
                         <table class="table table-hover table-bordered">
                             <tr>
                                 <td>Nama Customer</td>
@@ -23,7 +24,13 @@
                             <tr>
                                 <td>Tanggal Order</td>
                                 <td>
-                                    <?php echo date('d F Y, H:i:s', strtotime($order['tglorder'])); ?>
+                                    <?php echo date('d F Y, H:i:s', strtotime($order['tglorder'])); ?> WIB
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Deadline</td>
+                                <td>
+                                    <?php echo date('d F Y', strtotime($order['deadline'])); ?> WIB
                                 </td>
                             </tr>
                         </table>

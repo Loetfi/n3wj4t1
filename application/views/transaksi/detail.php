@@ -47,6 +47,9 @@
 							<td><?php echo $order->hargajual != "" ? number_format($order->hargajual) : ""; ?></td>
 							<td>
 								<a href="<?php echo site_url('rincianbiaya/index?id='.$order->trorderdetailid.'&orderid='.$order->trorderid) ?>" class="view_data btn btn-primary btn-xs"  >Rincian Biaya</a>
+
+								<a href="<?php echo site_url('rincianbiaya/index?id='.$order->trorderdetailid.'&orderid='.$order->trorderid) ?>" class="view_data btn btn-success btn-xs"><i class="fa fa-qrcode"></i> Cetak QR</a>
+
 							</td>
 
 						</tr>

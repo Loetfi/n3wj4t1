@@ -37,6 +37,7 @@
                                     <option value="Cash">Cash</option>
                                     <option value="Transfer">Transfer</option>
                                     <option value="EDC">Mesin EDC</option>
+                                    <option value="pph23">PPH 23</option>
                                 </select>
                             </td>
                         </tr>

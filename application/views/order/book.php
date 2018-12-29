@@ -159,7 +159,7 @@
                             <?php } ?>  -->
                             <!-- </div> -->
                         </td>
-                        <td>Detail Lembar *</td>
+                        <td>Detail Halaman *</td>
                         <td>
                             <input type="text" name="detailhalaman1" class="form-control format-number" required="">
                         </td>
@@ -220,7 +220,7 @@
                                 <?php } ?>  -->
                             </div>
                         </td>
-                        <td>Detail Lembar *</td>
+                        <td>Detail Halaman *</td>
                         <td>
                             <input type="text" name="detailhalaman2" class="form-control format-number" required="">
                         </td>
