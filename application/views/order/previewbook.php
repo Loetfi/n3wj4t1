@@ -44,10 +44,10 @@
                         </tr>
                         <?php $i = 1; ?> 
                         <?php foreach ($this->cart->contents() as $items): ?> 
-                            <tr>
-                                <td rowspan="19"> <?php echo $i; ?> </td>
+                             <tr>
+                                <td rowspan="22"> <?php echo $i; ?> </td>
                                 <td>Nama Proyek</td>
-                                <td>:</td>
+                                <td width="1%">:</td>
                                 <td>
                                     <?php echo $items['options']['projectname']; ?> 
                                 </td>
@@ -56,7 +56,7 @@
                                 <td>Sales </td>
                                 <td>:</td>
                                 <td>
-                                    <?php echo $items['options']['sales']; ?> 
+                                    <?php echo getSales($items['options']['sales']); ?> 
                                 </td>
                             </tr>
                             <tr>
@@ -74,11 +74,14 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Qty Cover </td>
+                                <td>Qty </td>
                                 <td>:</td>
                                 <td>
                                     <?php echo $items['options']['qty']; ?> 
                                 </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><b>Cover</b></td>
                             </tr>
                             <tr>
                                 <td>Ukuran Cover </td>
@@ -116,10 +119,20 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Qty Cover </td>
+                                <td>:</td>
+                                <td>
+                                    <?php echo $items['options']['qtycover']; ?> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><b>Isi</b></td>
+                            </tr>
+                            <tr>
                                 <td>Cetak Isi </td>
                                 <td>:</td>
                                 <td>
-                                    <?php echo getCetak($items['options']['laminatingcover']); ?> 
+                                    <?php echo getCetak($items['options']['cetakisi']); ?> 
                                 </td>
                             </tr>
                             <tr>
@@ -158,7 +171,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Bahan Isi  </td>
+                                <td>Bahan Isi</td>
                                 <td>:</td>
                                 <td>
                                     <?php echo getProduk($items['options']['bahanisi']); ?> 

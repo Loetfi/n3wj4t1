@@ -1,4 +1,5 @@
-    <div class="col-sm-12">
+    
+<div class="col-sm-12">
     <div class="content">   
         <?php echo $this->session->flashdata('message_system'); ?>
 
@@ -6,28 +7,28 @@
             <div class="panel-body">
                 <legend><?php echo $title; ?></legend>
 
-                <?php $pod = $this->session->userdata('cardheader'); ?>
+                <?php $okl = $this->session->userdata('cardheader'); ?>
                 <div class="panel panel-success">
                     <div class="panel-body">
                         <table class="table table-hover table-bordered">
                             <tr>
                                 <td>Nama Customer</td>
-                                <td><?php echo getCustomer($pod['customerid']); ?></td>
+                                <td><?php echo getCustomer($okl['customerid']); ?></td>
                             </tr>
                             <tr>
                                 <td>Tipe Order</td>
-                                <td><?php echo $pod['tipeorder']; ?></td>
+                                <td><?php echo $okl['tipeorder']; ?></td>
                             </tr>
                             <tr>
                                 <td>Nama Project</td>
                                 <td>
-                                    <?php echo $pod['projectname']; ?>
+                                    <?php echo $okl['projectname']; ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Tanggal Order</td>
                                 <td>
-                                    <?php echo date('d F Y, H:i:s', strtotime($pod['tglorder'])); ?>
+                                    <?php echo date('d F Y, H:i:s', strtotime($okl['tglorder'])); ?>
                                 </td>
                             </tr>
                         </table> 
@@ -79,8 +80,8 @@
 
                 </table>    
 
-                <a href="<?php echo site_url('order/save?projectname='.@$_GET['projectname'].'&tipeorder='.@$_GET['tipeorder'].'&deadline='.@$_GET['deadline']); ?>" class="btn btn-primary">Proses Orderan</a>
-                <a href="<?php echo site_url('order/card'); ?>" class="btn btn-default">Cancel</a>
+                <a href="<?php echo site_url('order/saveokl?projectname='.@$_GET['projectname'].'&tipeorder='.@$_GET['tipeorder'].'&deadline='.@$_GET['deadline']); ?>" class="btn btn-primary">Proses Orderan</a>
+                <a href="<?php echo site_url('order/okl'); ?>" class="btn btn-default">Cancel</a>
 
             </div></div>
             <br>

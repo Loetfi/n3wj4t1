@@ -1,4 +1,5 @@
-    <div class="col-sm-12">
+    
+<div class="col-sm-12">
     <div class="content">   
         <?php echo $this->session->flashdata('message_system'); ?>
 
@@ -79,8 +80,8 @@
 
                 </table>    
 
-                <a href="<?php echo site_url('order/save?projectname='.@$_GET['projectname'].'&tipeorder='.@$_GET['tipeorder'].'&deadline='.@$_GET['deadline']); ?>" class="btn btn-primary">Proses Orderan</a>
-                <a href="<?php echo site_url('order/card'); ?>" class="btn btn-default">Cancel</a>
+                <a href="<?php echo site_url('order/savepod?projectname='.@$_GET['projectname'].'&tipeorder='.@$_GET['tipeorder'].'&deadline='.@$_GET['deadline']); ?>" class="btn btn-primary">Proses Orderan</a>
+                <a href="<?php echo site_url('order/pod'); ?>" class="btn btn-default">Cancel</a>
 
             </div></div>
             <br>

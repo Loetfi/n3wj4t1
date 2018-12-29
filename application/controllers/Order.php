@@ -10,7 +10,7 @@ class Order extends CI_Controller {
 		// az_check_login();
 	} 
 
-
+	## card
 	public function card()
 	{  
 		read_access();
@@ -50,6 +50,144 @@ class Order extends CI_Controller {
 		
 	}
 
+	public function prosescard()
+	{
+		// echo "<pre>";
+		if (isset($_POST)) { 
+			// if (isset($_POST)) {  
+			// $lemparan = array();
+
+			// $_POST['order'] date("Y-m-d H:i:s" , strtotime($_POST['orderdate']))
+ 
+			$lemparan = array( 
+					'id'      => strtotime($this->input->post('orderdate')),
+					'qty'     => $this->input->post('qty'),
+					'price'   => 10,
+					'idcustomer' => $this->input->post('idcustomer'),
+					'name'    => $this->input->post('projectname'),
+					'options' => array($_POST)
+				);	
+			// print_r($lemparan);
+			$this->cart->insert($lemparan);   
+			$array = array(
+				'projectname' => $this->input->post('projectname'),
+				'idcustomer' => $this->input->post('idcustomer')
+			);
+			
+			$this->session->set_userdata( $array );
+
+			redirect(site_url('order/card?tipeorder=').@$_POST['tipeorder'].'&deadline='.@$_POST['deadline'],'refresh');
+ 
+
+		}
+		else {
+			redirect('order','refresh');
+		}
+	}
+
+	// preview card 
+	public function previewcard()
+	{ 
+
+		if (isset($_POST)) {	 
+
+			$header = array(
+				'customerid' 	=> $this->session->userdata('idcustomer'),//$items['options']['0']['idcustomer'], 
+				'tipeorder' => 'card',
+				'deadline' => @date('Y-m-d',strtotime($this->input->get('deadline'))),
+				'projectname'	=> $this->session->userdata('projectname'),
+				'tglorder'		=> date('Y-m-d H:i:s')
+			);
+
+			$array = array(
+				'cardheader' => $header
+			);
+			
+			$this->session->set_userdata( $array ); 
+
+			$data = array(
+				'title' => 'Preview Order Kartu Nama'
+				);
+
+			$page = 'order/previewcard';
+
+			template($page , $data);
+			
+			// $this->load->view('order/headerbaru', $data, FALSE);
+ 
+		} else {
+			redirect('order','refresh');
+		}
+	}
+
+	// save order 
+	public function save()
+	{
+		// echo "<pre>";
+		if (isset($_POST)) {	
+			// print_r($this->cart->contents()); 
+			// exit();
+
+			// insert to table
+			// insert header order 
+
+			// echo date('Y-m-d H:i:s');
+
+			$header = array(
+				'customerid' 	=> $this->session->userdata('idcustomer'),//$items['options']['0']['idcustomer'], 
+				'tipeorder' => 'card',
+				'deadline' => @date('Y-m-d',strtotime($this->input->get('deadline'))),
+				'projectname'	=> $this->session->userdata('projectname'),
+				'sales'	=> $this->session->userdata('sales'),
+				'tglorder'		=> date('Y-m-d H:i:s')
+			);
+
+			// print_r($header);
+			// exit();
+			$this->db->insert('trorder' , $header);
+			$id = $this->db->insert_id();
+
+			// print_r($header);
+			// exit();
+
+			foreach ($this->cart->contents() as $items): 
+
+				$insert = array(
+					'trorderid'		=> $id ,  
+					'customerid' 	=> $items['options']['0']['idcustomer'], 
+					'qty' => $items['options']['0']['qty'] , 
+					'cetak' => $items['options']['0']['cetak'], 
+					'kertas' => $items['options']['0']['productid'], 
+					'laminating' => $items['options']['0']['laminating'] , 
+					'finishing1' => implode(',', $items['options']['0']['finishing']) , 
+					'finishing2' => "",//$items['options']['0']['finishing2'] , 
+					'notes' => $items['options']['0']['notes'],
+					'satuanproject' => $items['options']['0']['satuanproject']
+				);
+
+				// print_r($insert);
+				$this->db->insert('trorderdetail' , $insert);
+
+			endforeach;
+
+
+			$this->session->set_flashdata('message_system', '<div class="alert alert-success"> Berhasil Menambah Orderan Baru</div>');
+
+			// menghapus nama project 
+			$this->session->unset_userdata('projectname');
+			$this->session->unset_userdata('idcustomer');
+			$this->session->unset_userdata('cardheader');
+			// menghapus cart
+			$this->cart->destroy();
+
+			redirect('order/card','refresh');
+
+			// exit();
+		} else {
+			redirect('order','refresh');
+		}
+	}
+	## end card
 
 	public function book()
 	{ 
@@ -67,6 +205,11 @@ class Order extends CI_Controller {
 		$data['mesin'] = $this->db->query("SELECT * from msmesin where status = 1 and book = 1")->result_array();
 		// $this->load->view('order/headerbaru', $data, FALSE);
 		// $this->load->view('order/book', $data, FALSE);
+
+		if (isset($_GET['reset'])) {
+			$this->cart->destroy(); 
+			redirect('order/book','refresh');
+		}
 
 		$page = 'order/book';
 		template($page , $data);
@@ -290,13 +433,16 @@ class Order extends CI_Controller {
 		// $data = array();
 		// $this->load->view('order/headerbaru', $data);
 		// $this->load->view('order/pod', $data);
+		if (isset($_GET['reset'])) {
+			$this->cart->destroy(); 
+			redirect('order/pod','refresh');
+		}
 
 		$page = 'order/pod';
 		template($page , $data);
 
 
-		// echo "Halaman Order";
-		
+		// echo "Halaman Order";		
 	}
 
 	public function removepod($rowid = '' , $projectname = '')
@@ -314,6 +460,38 @@ class Order extends CI_Controller {
 
 	public function prosespod()
 	{
+		// echo "<pre>";
+		if (isset($_POST)) { 
+			// if (isset($_POST)) {  
+			// $lemparan = array();
+
+			// $_POST['order'] date("Y-m-d H:i:s" , strtotime($_POST['orderdate']))
+ 
+			$lemparan = array( 
+					'id'      => strtotime($this->input->post('orderdate')),
+					'qty'     => $this->input->post('qty'),
+					'price'   => 0,
+					'idcustomer' => $this->input->post('idcustomer'),
+					'name'    => $this->input->post('projectname'),
+					'options' => array($_POST)
+				);	
+			// print_r($lemparan);
+			$this->cart->insert($lemparan);   
+			$array = array(
+				'projectname' => $this->input->post('projectname'),
+				'idcustomer' => $this->input->post('idcustomer')
+			);
+			
+			$this->session->set_userdata( $array );
+
+			redirect(site_url('order/pod?tipeorder=').@$_POST['tipeorder'].'&deadline='.@$_POST['deadline'],'refresh');
+ 
+
+		}
+		else {
+			redirect('order','refresh');
+		}
+		/*
 		// echo "<pre>";
 		if (isset($_POST)) {  
 
@@ -346,74 +524,41 @@ class Order extends CI_Controller {
 		else {
 			redirect('order','refresh');
 		}
+		*/
 	}
-
-	// preview order pod
 
 	public function previewpod()
 	{
-		// echo "<pre>";
 		if (isset($_POST)) {	 
-			
-			// echo "<pre>";
 
 			$header = array(
 				'customerid' 	=> $this->session->userdata('idcustomer'),//$items['options']['0']['idcustomer'], 
-				'tipeorder' 	=> 'pod',
-				'deadline' 		=> @date('Y-m-d',strtotime($this->input->get('deadline'))),
+				'tipeorder' => 'pod',
+				'deadline' => @date('Y-m-d',strtotime($this->input->get('deadline'))),
 				'projectname'	=> $this->session->userdata('projectname'),
 				'tglorder'		=> date('Y-m-d H:i:s')
-			); 
-
-			// print_r($header);
+			);
 
 			$array = array(
-				'podheader' => $header
+				'cardheader' => $header
 			);
 			
-			$this->session->set_userdata( $array );
+			$this->session->set_userdata( $array ); 
 
-			// $this->db->insert('trorder' , $header);
-			// $id = $this->db->insert_id();
- 			
- 			// print_r($this->cart->contents());
-
-			foreach ($this->cart->contents() as $items): 
-
-				$insert = array(
-					// 'trorderid'		=> $id ,  
-					'customerid' 	=> $items['options']['0']['idcustomer'], 
-					'qty' => $items['options']['0']['qty'] , 
-					'cetak' => $items['options']['0']['cetak'], 
-					'ukurancover' => $items['options']['0']['ukuran'], 
-					'kertas' => $items['options']['0']['productid'], 
-					'laminating' => $items['options']['0']['laminating'] , 
-					'mesincover' => $items['options']['0']['mesin'] , 
-					'finishing1' => implode(',', $items['options']['0']['finishing']) , 
-					'notes' => $items['options']['0']['notes'],
-					'satuanproject' => @$items['options']['0']['satuanproject']
+			$data = array(
+				'title' => 'Preview POD'
 				);
 
-				// $this->db->insert('trorderdetail' , $insert);
+			$page = 'order/previewpod';
 
-			endforeach;
-
-
-			// $this->session->set_flashdata('message_system', '<div class="alert alert-success"> Berhasil Menambahkan Data </div>');
+			template($page , $data);
+			
+			// $this->load->view('order/headerbaru', $data, FALSE);
  
-			$data = array();
-			// redirect('order/pod','refresh');
-			$this->load->view('order/headerbaru', $data, FALSE);
-			$this->load->view('order/previewpod', $data, FALSE);
-
-			// loadv
-
-			// exit();
 		} else {
 			redirect('order','refresh');
 		}
 	}
-
 
 	public function savepod()
 	{
@@ -438,13 +583,12 @@ class Order extends CI_Controller {
 					'customerid' 	=> $items['options']['0']['idcustomer'], 
 					'qty' => $items['options']['0']['qty'] , 
 					'cetak' => $items['options']['0']['cetak'], 
-					'ukurancover' => $items['options']['0']['ukuran'], 
 					'kertas' => $items['options']['0']['productid'], 
 					'laminating' => $items['options']['0']['laminating'] , 
-					'mesincover' => $items['options']['0']['mesin'] , 
 					'finishing1' => implode(',', $items['options']['0']['finishing']) , 
+					'finishing2' => "",//$items['options']['0']['finishing2'] , 
 					'notes' => $items['options']['0']['notes'],
-					'satuanproject' => @$items['options']['0']['satuanproject']
+					'satuanproject' => $items['options']['0']['satuanproject']
 				);
 
 				$this->db->insert('trorderdetail' , $insert);
@@ -452,7 +596,7 @@ class Order extends CI_Controller {
 			endforeach;
 
 
-			$this->session->set_flashdata('message_system', '<div class="alert alert-success"> Berhasil Menambahkan Data </div>');
+			$this->session->set_flashdata('message_system', '<div class="alert alert-success"> Berhasil Menambahkan Orderan Baru </div>');
 
 			// menghapus nama project 
 			$this->session->unset_userdata('projectname');
@@ -470,12 +614,57 @@ class Order extends CI_Controller {
 			redirect('order','refresh');
 		}
 	}
+	## POD End
+
+	## okl
+	public function okl()
+	{	
+		read_access();
+		$data['title'] = "Order OKL";
+
+		$data['ukuran'] = $this->db->query('select * from msukuran')->result_array();
+		$data['sales'] = $this->db->query('select * from mssales')->result_array();
+		$data['finishing'] = $this->db->query('select * from msfinishing')->result_array();
+		
+		$data['mesin'] = $this->db->query("SELECT * from msmesin where status = 1 and pod = 1")->result_array();
+
+		// lemparan 
+		$data['cetak'] = $this->db->query('select * from msattrcetak')->result_array();
+		// print_r($data['cetak']);
+		// exit();
+		$data['finishing'] = $this->db->query('select * from msfinishing')->result_array();
+		$data['laminating'] = $this->db->query('select * from mslaminating')->result_array();	
+
+		// print on demand 
+		// $data = array();
+		// $this->load->view('order/headerbaru', $data);
+		// $this->load->view('order/pod', $data);
+		if (isset($_GET['reset'])) {
+			$this->cart->destroy(); 
+			redirect('order/okl','refresh');
+		}
+
+		$page = 'order/okl';
+		template($page , $data);
 
 
-	## End
+		// echo "Halaman Order";		
+	}
+
+	public function removeokl($rowid = '' , $projectname = '')
+	{
+		$data = array(
+			'rowid' => $rowid,
+			'qty'   => 0
+		);
+
+		$this->cart->update($data);
+		$this->session->set_flashdata('message_system', '<div class="alert alert-success"> Berhasil Menghapus Orderan di Keranjang </div>');
+		redirect('order/okl?projectname='.$projectname,'refresh');
+	}
 
 
-	public function prosescard()
+	public function prosesokl()
 	{
 		// echo "<pre>";
 		if (isset($_POST)) { 
@@ -487,7 +676,7 @@ class Order extends CI_Controller {
 			$lemparan = array( 
 					'id'      => strtotime($this->input->post('orderdate')),
 					'qty'     => $this->input->post('qty'),
-					'price'   => 10,
+					'price'   => 0,
 					'idcustomer' => $this->input->post('idcustomer'),
 					'name'    => $this->input->post('projectname'),
 					'options' => array($_POST)
@@ -501,7 +690,7 @@ class Order extends CI_Controller {
 			
 			$this->session->set_userdata( $array );
 
-			redirect(site_url('order/card?tipeorder=').@$_POST['tipeorder'].'&deadline='.@$_POST['deadline'],'refresh');
+			redirect(site_url('order/okl?tipeorder=').@$_POST['tipeorder'].'&deadline='.@$_POST['deadline'],'refresh');
  
 
 		}
@@ -510,15 +699,13 @@ class Order extends CI_Controller {
 		}
 	}
 
-	// preview card 
-	public function previewcard()
-	{ 
-
+	public function previewokl()
+	{
 		if (isset($_POST)) {	 
 
 			$header = array(
 				'customerid' 	=> $this->session->userdata('idcustomer'),//$items['options']['0']['idcustomer'], 
-				'tipeorder' => 'card',
+				'tipeorder' => 'okl',
 				'deadline' => @date('Y-m-d',strtotime($this->input->get('deadline'))),
 				'projectname'	=> $this->session->userdata('projectname'),
 				'tglorder'		=> date('Y-m-d H:i:s')
@@ -531,10 +718,10 @@ class Order extends CI_Controller {
 			$this->session->set_userdata( $array ); 
 
 			$data = array(
-				'title' => 'Preview Order Kartu Nama'
+				'title' => 'Preview OKL'
 				);
 
-			$page = 'order/previewcard';
+			$page = 'order/previewokl';
 
 			template($page , $data);
 			
@@ -545,36 +732,21 @@ class Order extends CI_Controller {
 		}
 	}
 
-
-	// save order 
-	public function save()
+	public function saveokl()
 	{
 		// echo "<pre>";
-		if (isset($_POST)) {	
-			// print_r($this->cart->contents()); 
-			// exit();
-
-			// insert to table
-			// insert header order 
-
-			// echo date('Y-m-d H:i:s');
-
+		if (isset($_POST)) {	 
 			$header = array(
 				'customerid' 	=> $this->session->userdata('idcustomer'),//$items['options']['0']['idcustomer'], 
-				'tipeorder' => 'card',
-				'deadline' => @date('Y-m-d',strtotime($this->input->get('deadline'))),
+				'tipeorder' 	=> 'okl',
+				'deadline' 		=> @date('Y-m-d',strtotime($this->input->get('deadline'))),
 				'projectname'	=> $this->session->userdata('projectname'),
-				'sales'	=> $this->session->userdata('sales'),
 				'tglorder'		=> date('Y-m-d H:i:s')
-			);
+			); 
 
-			// print_r($header);
-			// exit();
 			$this->db->insert('trorder' , $header);
 			$id = $this->db->insert_id();
-
-			// print_r($header);
-			// exit();
+ 
 
 			foreach ($this->cart->contents() as $items): 
 
@@ -591,33 +763,32 @@ class Order extends CI_Controller {
 					'satuanproject' => $items['options']['0']['satuanproject']
 				);
 
-				// print_r($insert);
 				$this->db->insert('trorderdetail' , $insert);
 
 			endforeach;
 
 
-			$this->session->set_flashdata('message_system', '<div class="alert alert-success"> Berhasil Menambah Orderan Baru</div>');
+			$this->session->set_flashdata('message_system', '<div class="alert alert-success"> Berhasil Menambahkan Orderan Baru </div>');
 
 			// menghapus nama project 
 			$this->session->unset_userdata('projectname');
 			$this->session->unset_userdata('idcustomer');
-			$this->session->unset_userdata('cardheader');
+			$this->session->unset_userdata('sales');
+			$this->session->unset_userdata('podheader');
+
 			// menghapus cart
 			$this->cart->destroy();
 
-			redirect('order/card','refresh');
+			redirect('order/okl','refresh');
 
 			// exit();
 		} else {
 			redirect('order','refresh');
 		}
 	}
-
-
+	## end okl
 
 	// remove item 
-
 	public function remove($rowid = '' , $projectname = '')
 	{
 		$data = array(

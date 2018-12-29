@@ -7,9 +7,9 @@
         <?php echo $this->session->flashdata('message_system'); ?>
         <div class="panel panel-primary">
             <div class="panel-body">
-                <form action="<?php echo site_url('order/prosescard?projectname='.@urlencode($_POST['projectname']).'&tipeorder='.@$_POST['tipeorder'].'&deadline='.@$_POST['deadline']) ?>" method="POST">
+                <form action="<?php echo site_url('order/prosesokl?projectname='.@urlencode($_POST['projectname']).'&tipeorder='.@$_POST['tipeorder'].'&deadline='.@$_POST['deadline']) ?>" method="POST">
                     <!-- tipe order -->
-                    <input type="hidden" name="tipeorder" value="card">
+                    <input type="hidden" name="tipeorder" value="okl">
 
 
                     <!-- end --> 
@@ -138,7 +138,7 @@
                         </table>
                         <hr>
                         <button class="btn btn-primary">Tambah Keranjang</button>
-                        <a href="<?php echo site_url('order/card?reset=y') ?>" onclick="return confirm('Cancel Order dapat mereset order page ini');" class="btn btn-default">Cancel</a>
+                        <a href="<?php echo site_url('order/okl?reset=y') ?>" onclick="return confirm('Cancel Order dapat mereset order page ini');" class="btn btn-default">Cancel</a>
                     </form>
                 </div>
             </div>
@@ -165,6 +165,7 @@
                             -->
                         </tr>
                         <?php $i = 1; ?>
+                        
                         <?php foreach ($this->cart->contents() as $items){ ?> 
                             <tr>
                                 <td rowspan="10"><?php echo $i ?></td>
@@ -258,7 +259,7 @@
                     <?php $i++; ?>
                     <?php } ?> 
         </table>
-        <?php $disabled = ""; $link = site_url('order/previewcard?projectname='.@$_GET['projectname'].'&tipeorder='.@$_GET['tipeorder'].'&deadline='.@$_GET['deadline']); if (count($this->cart->contents()) == 0 ) { $disabled = 'disabled=""'; $link = "#"; } ?>
+        <?php $disabled = ""; $link = site_url('order/previewokl?projectname='.@$_GET['projectname'].'&tipeorder='.@$_GET['tipeorder'].'&deadline='.@$_GET['deadline']); if (count($this->cart->contents()) == 0 ) { $disabled = 'disabled=""'; $link = "#"; } ?>
         <a <?php echo $disabled; ?> href="<?php echo $link; ?>" class="btn btn-success">Proses Keranjang</a>
     </div>
 </div>
