@@ -23,7 +23,17 @@ class Customer extends CI_Controller {
 
 	public function create()
 	{
-		$this->form_validation->set_rules('name', 'Nama', 'trim|required');
+		$name = $this->input->post('name');
+		$name_exist = $this->db->where('name', $name)
+							->count_all_results('customer');
+
+		if($name_exist > 0) {
+			$is_unique =  '|is_unique[customer.name]';
+		} else {
+		   	$is_unique =  '';
+		}
+
+		$this->form_validation->set_rules('name', 'Nama', 'trim|required'.$is_unique);
 		$this->form_validation->set_rules('gender', 'Jenis Kelamin', 'trim|required');
 		$this->form_validation->set_rules('address', 'Alamat', 'trim|required');
 		$this->form_validation->set_rules('phone', 'No Telp', 'trim|required|numeric');
