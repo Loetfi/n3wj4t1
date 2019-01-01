@@ -83,7 +83,7 @@
       placeholder:"~ Pilih Customer ~",
       allowClear:true,
       minimumInputLength:0,
-      ajax:{url:"http://localhost/projekan/newido/index.php/customer/get_data",
+      ajax:{url:"<?php echo site_url('customer/get_data')?>",
       dataType:"json",delay:250,data:function(params){return{term:params.term,page:params.page||1,parent:jQuery("#").val(),}},cache:true}});
 
     jQuery("#idkasir").select2({placeholder:"~ Select Cashier ~",allowClear:true,minimumInputLength:0,ajax:{url:"http://ido.awanesia.com/index.php/user/get_data",dataType:"json",delay:250,data:function(params){return{term:params.term,page:params.page||1,parent:jQuery("#").val(),}},cache:true}});
