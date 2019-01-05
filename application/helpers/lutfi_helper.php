@@ -128,4 +128,10 @@ function read_access() {
     }
 }
 
+function get_transaction($id, $field) {
+	$ci = &get_instance();
+	$query = $ci->db->query("SELECT * FROM transaction where idtransaction_group = '$id'")->row_array();
+	return $query[$field];
+}
+
 ?>
