@@ -69,6 +69,7 @@
                     <thead>
                         <tr>
                             <th style="width:4%">#</th>
+                            <th>Customer</th>
                             <th>Date</th>
                             <th>Nota</th>
                             <th>Product Name</th>
@@ -83,6 +84,7 @@
                         <?php $i = 1; foreach($filter as $key => $value): ?>
                             <tr>
                                 <td><?=$i++?></td>
+                                <td><?= getCustomer($value['idcustomer']) ?></td>
                                 <td><?= date_format(date_create($value['transaction_date']),'d/m/Y H:i:s') ?></td>
                                 <td><?=$value['code']?></td>
                                 <td>

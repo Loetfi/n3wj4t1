@@ -31,7 +31,6 @@ class Lists extends CI_Controller {
 
 		$data['list_customer'] = $this->customer->get_all_select2();
 		$data['filter'] = $this->transaction->get_by_filter($id, $start, $end)->result_array();
-		// dd($data);
 		$page = 'laporan/result_filter';
 
 		template($page , $data);

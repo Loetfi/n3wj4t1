@@ -5,7 +5,24 @@ class Transaction_model extends CI_Model {
 
 	public function get_by_filter($id, $start, $end)
 	{
-		$where = "idcustomer = '$id' and transaction_date BETWEEN '$start' AND '$end' ";
+		$where = '';
+
+		if($id != '') {
+			$where .= "idcustomer = '$id'";
+			if($start != '' and $end !='')
+			{
+				$where .= " and transaction_date BETWEEN '$start' AND '$end'";
+			}
+		} else {
+			if($start != '' and $end !='')
+			{
+				$where .= " transaction_date BETWEEN '$start' AND '$end'";
+			}
+		}
+
+
+
+		// $where = "idcustomer = '$id' and transaction_date BETWEEN '$start' AND '$end' ";
 		$this->db->select('*')
 					->from('transaction_group')
 					->where($where)
