@@ -19,11 +19,11 @@ class Cetak extends CI_Controller {
 		if ($data['order']['tipeorder'] == 'card') {
 			$this->load->view('print/wo', $data, FALSE);
 		}elseif($data['order']['tipeorder'] == 'book') {
-			echo ' belum ada book format';
+			$this->load->view('print/book', $data, FALSE);
 		}elseif($data['order']['tipeorder'] == 'pod') {
-			echo ' belum ada pod format';
+			$this->load->view('print/pod', $data, FALSE);
 		}elseif($data['order']['tipeorder'] == 'okl') {
-			echo ' belum ada okl format';
+			$this->load->view('print/okl', $data, FALSE);
 		} else {
 			echo 'tidak ada jenis order format';
 		}
