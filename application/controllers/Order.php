@@ -232,10 +232,11 @@ class Order extends CI_Controller {
 
 
 			$data = array(
-				'id'      => str_replace(' ', '', $this->input->post('orderdate')),
-				'qty'     => 1,
-				'price'   => '19.56',
-				'name'    => 'sgsgsgs',
+				'id'      => strtotime($this->input->post('orderdate')),
+				'qty'     => $this->input->post('qty'),
+				'price'   => 0,
+				'idcustomer' => $this->input->post('idcustomer'),
+				'name'    => $this->input->post('projectname'),
 				'options' => $_POST
 				//array('Size' => 'L', 'Color' => 'Red')
 			);
@@ -264,7 +265,7 @@ class Order extends CI_Controller {
 		}
 	}
 
-	// preview card 
+	// preview book 
 	public function previewbook()
 	{ 
 
@@ -272,7 +273,7 @@ class Order extends CI_Controller {
 
 			$header = array(
 				'customerid' 	=> $this->session->userdata('idcustomer'),//$items['options']['0']['idcustomer'], 
-				'tipeorder' => 'card',
+				'tipeorder' => 'book',
 				'deadline' => @date('Y-m-d',strtotime($this->input->get('deadline'))),
 				'projectname'	=> $this->session->userdata('projectname'),
 				'tglorder'		=> date('Y-m-d H:i:s')
@@ -334,7 +335,7 @@ class Order extends CI_Controller {
 					'ukurancover' => $items['options']['ukurancover'],
 					'mesincover' => $items['options']['mesincover'],
 					'cetakcover' => $items['options']['cetakcover'],
-					'bahancover' => $items['options']['bahancover'],
+					'bahancover' => $items['options']['bahancover'], 
 					'laminatingcover' => $items['options']['laminatingcover'],
 					'banyakhalamanisi' => $items['options']['banyakhalamanisi'],
 					'cetakisi' => $items['options']['cetakisi'],
@@ -344,7 +345,11 @@ class Order extends CI_Controller {
 					'mesinisi2' => $items['options']['mesinisi2'],
 					'bahanisi' => $items['options']['bahanisi'],
 					'finishing1' => implode(',', $items['options']['finishing']),
-					'notes' => $items['options']['notes'] 
+					'notes' => $items['options']['notes'],
+					'cetak' => $items['options']['cetakcover'], 
+					'kertas' => $items['options']['bahancover'], 
+					'laminating' => $items['options']['laminatingcover'],
+					'satuanproject' => $items['options']['satuanproject'], 
 				);
 				$this->db->insert('trorderdetail' , $insert);
 			}
