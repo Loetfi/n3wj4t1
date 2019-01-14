@@ -201,15 +201,15 @@
                                     <?php
                                         $a = array();
                                         $b = array();
-                                        $a = ['29.7','42.0']; // ukuran A3; 
-                                        $b = getArrUkuran($items['options']['mesincover']); 
+                                        $a[] = ['29.7','42.0']; // ukuran A3; 
+                                        $b[] = getArrUkuran($items['options']['mesincover']); 
                                         // dd($b);
                                         $hasil = nilai_ukuran($a, $b);
 
                                         for ($i=0; $i<sizeof($hasil); $i++) {
                                             $jumlahnya =  round($hasil[$i][0],0) * round($hasil[$i][1],0);
                                         }
-                                        echo ceil(100/@$jumlahnya);
+                                        echo ceil($items['options']['qty']/@$jumlahnya);
                                     ?> 
                                 </td>
                             </tr>

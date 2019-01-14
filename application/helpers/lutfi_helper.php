@@ -27,7 +27,7 @@ function getUkuran($idukuran='')
 function getArrUkuran($idukuran='') 
 {
 	$ci = &get_instance();
-	$array = array();
+	// $array = array();
 	$query = $ci->db->query("SELECT * from msukuran where idukuran = '".$idukuran."' ")->row_array(); 
 
 	return array(0=>$query['panjang'],1=>$query['lebar']);
