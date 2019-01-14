@@ -24,6 +24,30 @@ function getUkuran($idukuran='')
 	return $query['namaukuran'];
 }
 
+function getArrUkuran($idukuran='') 
+{
+	$ci = &get_instance();
+	$array = array();
+	$query = $ci->db->query("SELECT * from msukuran where idukuran = '".$idukuran."' ")->row_array(); 
+
+	return array(0=>$query['panjang'],1=>$query['lebar']);
+}
+
+function nilai_ukuran($matriks_a, $matriks_b)
+{
+	$hasil = array();
+	for ($i=0; $i<sizeof($matriks_a); $i++) {
+		for ($j=0; $j<sizeof($matriks_b[0]); $j++) {
+			$temp = 0;
+			for ($k=0; $k<sizeof($matriks_b); $k++) {
+				$temp += $matriks_a[$i][$k] / $matriks_b[$k][$j];
+			}
+			$hasil[$i][$j] = $temp;
+		}
+	}
+	return $hasil;
+}
+
 
 function getLaminating($laminatingid='')
 {
