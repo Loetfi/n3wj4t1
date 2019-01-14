@@ -20,6 +20,7 @@
 								<th>JENIS PESANAN</th>
 								<th>KETERANGAN</th>
 								<th>QTY</th>
+								<th>BANYAK BAHAN A3</th>
 								<!-- <th>HARGA JUAL SATUAN</th> -->
 								<!-- <td>SATUAN</td> -->
 								<!-- <Th>UPRICE</Th> -->
@@ -30,7 +31,22 @@
 								<td><?php echo $project['projectname']; ?></td>
 								<td><?php echo $ambildetail['tipeorder']; ?> </td>
 								<td><?php echo $ambildetail['satuanproject']; ?> </td>
-								<td><?php echo $ambildetail['qty']; ?> </td> 
+								<td><?php echo $ambildetail['qty']; ?> </td>
+								<td>
+									<?php
+                                        $a = array();
+                                        $b = array();
+                                        $a[] = ['29.7','42.0']; // ukuran A3; 
+                                        $b[] = getArrUkuran($ambildetail['mesincover']); 
+                                        // dd($b);
+                                        $hasil = nilai_ukuran($a, $b);
+
+                                        for ($i=0; $i<sizeof($hasil); $i++) {
+                                            $jumlahnya =  round($hasil[$i][0],0) * round($hasil[$i][1],0);
+                                        }
+                                        echo ceil($ambildetail['qty']/@$jumlahnya);
+                                    ?> 
+								</td> 
 								<!-- <td></td>  -->
 								<!-- <td>00</td> -->
 								<!-- <td> 00</td> -->
