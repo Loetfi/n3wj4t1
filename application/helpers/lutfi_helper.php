@@ -7,6 +7,14 @@ function getSales($idsales='')
 	return $query['namasales'];
 }
 
+function getProjectName($id ='')
+{
+	$ci = &get_instance();
+	$query = $ci->db->query("SELECT projectname from trorder where trorderid = '$id' ")->row_array(); 
+
+	return $query['projectname'];	
+}
+
 
 function getMesin($idmesin='')
 {

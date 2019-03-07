@@ -20,12 +20,24 @@
                                 <input type="text" name="projectname" class="form-control" width="30px" required="" onkeyup="this.value=this.value.toUpperCase()" value="<?php echo ($this->session->userdata('projectname')) ? $this->session->userdata('projectname') : '' ;  ?>">
                             </td>
                         </tr>
+                        <!-- 
                         <tr>
                             <td><b>SALES</b></td>
                             <td>
                                 <select name="sales" class="form-control select">
                                     <?php foreach ($sales as $sls) { ?>
                                         <option value="<?php echo $sls['idsales'] ?>"> <?php echo $sls['namasales'] ?> </option>
+                                    <?php } ?>
+                                </select>
+                            </td>
+                        </tr>
+                         -->
+                        <tr>
+                            <td><b>Order cant handle</b></td>
+                            <td>
+                                <select name="parent_id" class="form-control order_cant_handle">
+                                    <?php foreach ($order as $ord) { ?>
+                                        <option value="<?php echo $ord['trorderid'] ?>"> <?php echo $ord['projectname'] ?> </option>
                                     <?php } ?>
                                 </select>
                             </td>
@@ -177,9 +189,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Sales</td>
+                                <td>Order cant handle</td>
                                 <td>:</td>
-                                <td><?php echo getSales($items['options']['0']['sales']) ?></td>
+                                <td><?php echo getProjectName($items['options']['0']['parent_id']) ?></td>
                             </tr>
                             <tr>
                                 <td>Customer</td>
@@ -297,6 +309,8 @@
         jQuery("#btn_add_transaction").click(function() {
             add_transaction();
         });
+
+        jQuery('.order_cant_handle').select2();
 
         jQuery("#barcode, #qty").on("keyup", function(e) {
             jQuery("#l_product_name").text("");

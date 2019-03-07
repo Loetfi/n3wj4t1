@@ -268,13 +268,12 @@ class Order extends CI_Controller {
 	// preview book 
 	public function previewbook()
 	{ 
-
 		if (isset($_POST)) {
 
 			$header = array(
 				'customerid' 	=> $this->session->userdata('idcustomer'),//$items['options']['0']['idcustomer'], 
-				'tipeorder' => 'book',
-				'deadline' => @date('Y-m-d',strtotime($this->input->get('deadline'))),
+				'tipeorder' 	=> 'book',
+				'deadline' 		=> @date('Y-m-d',strtotime($this->input->get('deadline'))),
 				'projectname'	=> $this->session->userdata('projectname'),
 				'tglorder'		=> date('Y-m-d H:i:s')
 			);
@@ -287,7 +286,7 @@ class Order extends CI_Controller {
 
 			$data = array(
 				'title' => 'Preview Order Book'
-				);
+			);
 
 			$page = 'order/previewbook';
 
@@ -629,7 +628,8 @@ class Order extends CI_Controller {
 		$data['title'] = "Order OKL";
 
 		$data['ukuran'] = $this->db->query('select * from msukuran')->result_array();
-		$data['sales'] = $this->db->query('select * from mssales where status = 1')->result_array();
+		// $data['sales'] = $this->db->query('select * from mssales where status = 1')->result_array();
+		$data['order'] = $this->db->query('select * from trorder')->result_array();
 		$data['finishing'] = $this->db->query('select * from msfinishing')->result_array();
 		
 		$data['mesin'] = $this->db->query("SELECT * from msmesin where status = 1 and pod = 1")->result_array();
@@ -639,8 +639,7 @@ class Order extends CI_Controller {
 		// print_r($data['cetak']);
 		// exit();
 		$data['finishing'] = $this->db->query('select * from msfinishing')->result_array();
-		$data['laminating'] = $this->db->query('select * from mslaminating')->result_array();	
-
+		$data['laminating'] = $this->db->query('select * from mslaminating')->result_array();
 		// print on demand 
 		// $data = array();
 		// $this->load->view('order/headerbaru', $data);
@@ -766,7 +765,8 @@ class Order extends CI_Controller {
 					'finishing1' => implode(',', $items['options']['0']['finishing']) , 
 					'finishing2' => "",//$items['options']['0']['finishing2'] , 
 					'notes' => $items['options']['0']['notes'],
-					'satuanproject' => $items['options']['0']['satuanproject']
+					'satuanproject' => $items['options']['0']['satuanproject'],
+					'related_order_id'	=> $items['options']['0']['parent_id'], // parent id dari order
 				);
 
 				$this->db->insert('trorderdetail' , $insert);
@@ -820,7 +820,6 @@ class Order extends CI_Controller {
 		if ($updateHarga) echo number_format($_POST['hargaJual'],2); else echo 'gagal';
 		// print_r($_POST);
 	}
-
 }
 
 /* End of file Order.php */
