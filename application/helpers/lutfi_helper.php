@@ -15,6 +15,20 @@ function getProjectName($id ='')
 	return $query['projectname'];	
 }
 
+function getProjectNameArray($id)
+{
+	$ci = &get_instance();
+	$query = $ci->db->query("SELECT related_order_id from trorderdetail where trorderid = '$id' ")->result_array(); 
+
+	$data = [];
+	foreach($query as $key => $val) {
+		$rows = getProjectName($val['related_order_id']);
+		$data[] = $rows;
+	}
+
+	return implode(', ', $data);	
+}
+
 
 function getMesin($idmesin='')
 {

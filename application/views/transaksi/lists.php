@@ -22,6 +22,7 @@
 						<tr><th style="width:50px">No</th>
 							<th>Customer</th>
 							<th>Nama Project</th>
+							<th>Relasi Order</th>
 							<th>Tgl Order</th>
 							<th>Tipe Order</th>
 							<th>Total Harga</th>

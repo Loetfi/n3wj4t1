@@ -87,7 +87,9 @@ class Transaksi extends CI_Controller {
 			$output['data'][]=array(
 				$nomor_urut,
 				$desa['name'] , 
-				$desa['projectname'].'|'.@$idcustomer, 
+				// $desa['projectname'].'|'.@$idcustomer,
+				$desa['projectname'],
+				isset($desa['trorderid']) ? getProjectNameArray($desa['trorderid']) : '', 
 				date('d F Y , H:i:s' , strtotime($desa['tglorder'])), 
 				$desa['tipeorder'] , 
 				$desa['totalharga'] != "" ?  number_format($desa['totalharga']) : '', 
