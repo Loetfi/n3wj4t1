@@ -117,43 +117,44 @@
 					</li> 
 
 				</ul>
-				-->
-			</div>
+			-->
 		</div>
-	</div><!-- /Page Sidebar -->
+	</div>
+</div><!-- /Page Sidebar -->
 
-	<!-- Page Content -->
-	<div class="page-content">
-		<!-- Page Header -->
-		<div class="page-header"> 
-			<nav class="navbar navbar-default">
-				<div class="container-fluid">
-					<!-- Brand and toggle get grouped for better mobile display -->
-					<div class="navbar-header">
-						<div class="logo-sm">
-							<a href="javascript:void(0)" id="sidebar-toggle-button"><i class="fa fa-bars"></i></a>
-							<a class="logo-box" href="index.html"><span>IDO Printing</span></a>
-						</div>
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-							<i class="fa fa-angle-down"></i>
-						</button>
+<!-- Page Content -->
+<div class="page-content">
+	<!-- Page Header -->
+	<div class="page-header"> 
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<div class="logo-sm">
+						<a href="javascript:void(0)" id="sidebar-toggle-button"><i class="fa fa-bars"></i></a>
+						<!-- <a class="logo-box" href="index.html"><span>IDO Printing</span></a> -->
 					</div>
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<i class="fa fa-angle-down"></i>
+					</button>
+				</div>
 
-					<!-- Collect the nav links, forms, and other content for toggling -->
+				<!-- Collect the nav links, forms, and other content for toggling -->
 
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav">
-							<li><a href="javascript:void(0)" id="collapsed-sidebar-toggle-button"><i class="fa fa-bars"></i></a></li>
-							<li><a href="javascript:void(0)" id="toggle-fullscreen"><i class="fa fa-expand"></i></a></li>
-							<li><a href="#"> Tanggal : <?php echo date('d F Y , H:i:s') ?></a></li>
-							<!-- <li><a href="javascript:void(0)" id="search-button"><i class="fa fa-search"></i></a></li> -->
-						</ul>
-						<ul class="nav navbar-nav navbar-right">
-							<!-- <li><a href="javascript:void(0)" class="right-sidebar-toggle" data-sidebar-id="main-right-sidebar"><i class="fa fa-envelope"></i></a></li>  -->
-							<li class="dropdown user-dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-									<?php echo @$this->session->login['username']; ?>
-									<img src="#" alt="" class="img-circle"></a>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li><a href="javascript:void(0)" id="collapsed-sidebar-toggle-button"><i class="fa fa-bars"></i></a></li>
+						<li><a href="javascript:void(0)" id="toggle-fullscreen"><i class="fa fa-expand"></i></a></li>
+						<!-- <li><a href="#"> Tanggal : <?php echo date('d F Y , H:i:s') ?></a></li> -->
+						<li><a href=""  id='date-part'></a></li>
+						<!-- <li><a href="javascript:void(0)" id="search-button"><i class="fa fa-search"></i></a></li> -->
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<!-- <li><a href="javascript:void(0)" class="right-sidebar-toggle" data-sidebar-id="main-right-sidebar"><i class="fa fa-envelope"></i></a></li>  -->
+						<li class="dropdown user-dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<?php echo @$this->session->login['username']; ?>
+								<img src="#" alt="" class="img-circle"></a>
 								<ul class="dropdown-menu"> 
 									<li><a href="<?= site_url('auth/login') ?>">Log Out</a></li>
 								</ul>

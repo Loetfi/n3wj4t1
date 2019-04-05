@@ -6,7 +6,7 @@
     <div id="main-wrapper">
         <!-- <div class="row"> -->
             <?php echo $this->session->flashdata('message_system'); ?> 
-            <form action="<?php echo site_url('order/prosesbook/') ?>" method="POST" target="_blank">
+            <form action="<?php echo site_url('order/prosesbook/') ?>" method="POST">
                 <input type="hidden" name="orderdate" readonly="" value="<?php echo date('d F Y'); ?>" class="form-control">
 
                 <div class="panel panel-primary">
@@ -53,30 +53,131 @@
                                 <td><b>Qty</b></td>
                                 <td><input type="text" name="qty" value="0" class="form-control format-number"></td>
                             </tr>
+                            <tr>
+                                <td colspan="6"><b>BUKU</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Ukuran Tertutup *</b></td>
+                                <td>
+                                    <div class="form-group">
+                                        <?php foreach ($ukuran as $ukur) { ?>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="ukurancover" value="<?php echo $ukur['idukuran']; ?>" checked=""><?php echo $ukur['namaukuran']; ?>
+                                            </label>
+                                            &nbsp;&nbsp;&nbsp;
+                                        <?php } ?> 
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Ukuran Terbuka *</b></td>
+                                <td>
+                                    <div class="form-group">
+                                        <?php foreach ($ukuran as $ukur) { ?>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="ukurancover_terbuka" value="<?php echo $ukur['idukuran']; ?>" checked=""><?php echo $ukur['namaukuran']; ?>
+                                                <br>
+                                            </label>
+                                            &nbsp;&nbsp;&nbsp;
+                                        <?php } ?> 
+                                    </div>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
 
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                     <table class="table table-striped">
+                       <table class="table table-striped">
                         <tr>
                             <td colspan="6"><b>COVER</b></td>
                         </tr>
                         <tr>
-                            <td><b>Ukuran Cover *</b></td>
-                            <td>
+                            <td><b>Ukuran Media *</b></td>
+                            <td colspan="6">
+                                <div class="container">
+                                   <!-- <div class="row"> -->
+                                    <div class="col-sm-6"> 
+                                     <form class="form-horizontal">
+                                      <div class="form-group">
+                                       <label class="control-label col-sm-2" for="p">P</label>
+                                       <div class="col-sm-10">
+                                        <input type="number" name="p" id="p" class="form-control" min="0" placeholder="Panjang" required />
+                                    </div>
+                                </div>
                                 <div class="form-group">
+                                   <label class="control-label col-sm-2" for="l">L</label>
+                                   <div class="col-sm-10">
+                                    <input type="number" name="l" id="l" class="form-control" min="0" placeholder="Lebar" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                               <label class="control-label col-sm-2" for="t">T</label>
+                               <div class="col-sm-10">
+                                <input type="number" name="t" id="t" class="form-control" min="0" placeholder="Tinggi" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                           <label class="control-label col-sm-2" for="sum">Ukuran Jadi</label>
+                           <div class="col-sm-10">
+                            <input type="number" name="panjang" id="panjang" class="form-control" readonly />x
+                            <input type="number" name="sum" id="sum" class="form-control" readonly />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- </div> -->
+            <!-- </div> -->
+
+
+                                <!-- P: <input type="text" name="" class="aform-control-static ">
+                                L: <input type="text" name="" class="aform-control ">
+                                T: <input type="text" name="" class="aform-control "> -->
+                                <!-- kalo indigo itu ukurannya bisa a3+ ( angka x angka ) -->
+                                <!-- kalo oce itu ukurannya bisa a4 n a5 ( angka x angka ) -->
+                                <!-- <div class="form-group">
                                     <?php foreach ($ukuran as $ukur) { ?>
                                         <label class="radio-inline">
-                                            <input type="radio" name="ukurancover" value="<?php echo $ukur['idukuran']; ?>" checked=""><?php echo $ukur['namaukuran']; ?>
+                                            <input type="radio" name="ukurancover1" value="<?php echo $ukur['idukuran']; ?>" checked=""><?php echo $ukur['namaukuran']; ?>
                                         </label>
                                         &nbsp;&nbsp;&nbsp;
                                     <?php } ?> 
-                                </div>
+                                </div> -->
                             </td>
+                        </tr>
+                        
+                        <tr>
                             <td><b>Mesin Cover*</b></td>
                             <td>
+                                <script type="text/javascript">
+
+                                    function yesnoCheck() {
+                                        if (document.getElementById('indigo').checked) {
+                                            document.getElementById('ifindigo').style.display = 'block';
+                                        }
+                                        else document.getElementById('ifindigo').style.display = 'none';
+
+                                    }
+
+                                </script>
+                                <div class="form-group">
+
+                                    <label class="radio-inline"> <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="indigo"> INDIGO </label>
+                                    <label class="radio-inline"> <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck">OCE </label> 
+                                    <br>
+                                    <div id="ifindigo" style="display:none">
+                                        <label class="radio-inline"> <input type="radio" onclick="javascript:a3plus();" name="a3plus"> A3+ </label>
+                                        <label class="radio-inline"> <input type="radio" onclick="javascript:yesnoCheck();" name="b2"> B2 </label> 
+                                        <!-- Ukuran Kertas A3+ n B2 -->
+                                    </div>
+
+                                    <div id="ifindigo" style="display:none">
+                                        Ukuran Kertas A3+
+                                    </div>
+                                </div> 
+
                                 <div class="form-group">
                                     <?php foreach ($mesin as $msn) { ?>
                                         <label class="radio-inline">
@@ -88,6 +189,19 @@
                                 </div>
                             </td>
                         </tr>
+                            <script type="text/javascript">
+          $(function(){
+            $('#p, #l , #t').keyup(function(){
+               var p = parseFloat($('#p').val()) || 0;
+               var l = parseFloat($('#l').val()) || 0;
+               var t = parseFloat($('#t').val()) || 0;
+               // $('#sum').val(p * l * t);
+               // $('#sum').val(p * (2*l+t) );
+               $('#panjang').val(p);
+               $('#sum').val(l+l+t);
+            });
+         });
+      </script>
                         <tr>
                             <td><b>Cetak Cover</b></td>
                             <td>
@@ -177,7 +291,9 @@
                                     <?php $no++; } ?> 
                                 </div>
                             </td>
-                            <td><b>Ukuran *</b></td>
+                        </tr>
+                        <tr>
+                            <td><b>Ukuran Jadi *</b></td>
                             <td>
                                 <div class="form-group">
                                     <?php foreach ($ukuran as $ukur) { ?>
@@ -199,14 +315,87 @@
                             </td>
                         </tr>
 
-                </table>
+                    </table>
+                </div>
             </div>
-        </div>
 
-        <div class="panel panel-primary">
-            <div class="panel-body">
-                <table class="table table-striped">
-                    
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <table class="table table-striped">
+
+
+                        <tr>
+                            <td colspan="6"><b>ISI SISIPAN</b></td>
+                        </tr>
+                        <tr>
+                            <td><b>Banyak Halaman *</b></td>
+                            <td>
+                                <input type="text" name="banyakhalamanisi" class="form-control format-number" required="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Mesin *</b></td>
+                            <td>
+                                INDIGO
+                                <input type="hidden" name="mesinisi1" value="1">
+                        <!-- <div class="form-group">
+                            <?php foreach ($mesin as $msn) { ?>
+                            <input type="radio" name="mesinisi1" value="<?php echo $msn['idmesin']; ?>" checked="">
+                            <span class="labels"><?php echo $msn['namamesin']; ?></span>
+                            &nbsp;&nbsp; 
+                            <?php } ?>  -->
+                            <!-- </div> -->
+                        </td>
+                        <td>Detail Halaman *</td>
+                        <td>
+                            <input type="text" name="detailhalaman1" class="form-control format-number" required="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Cetak Isi *</b></td>
+                        <td>
+                            <div class="form-group">
+                                <?php $no=0; foreach ($cetak as $cet) { ?>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="cetakisi" value="<?php echo $cet['idattributecetak']; ?>" <?php echo ($no==0?'checked=""':''); ?> >
+                                        <?php echo $cet['attributecetak']; ?>
+                                    </label>
+                                    &nbsp;&nbsp; 
+                                    <?php $no++; } ?> 
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Ukuran Jadi *</b></td>
+                            <td>
+                                <div class="form-group">
+                                    <?php foreach ($ukuran as $ukur) { ?>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="ukurancover" value="<?php echo $ukur['idukuran']; ?>" checked="">
+                                            <?php echo $ukur['namaukuran']; ?>
+                                        </label>
+                                        &nbsp;&nbsp;&nbsp;
+                                    <?php } ?> 
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Bahan *</b></td>
+                            <td colspan="3">
+                                <div class="form-group">
+                                    <select id="kertasisi" name="bahanisi" class="form-control select select2-ajax"></select> 
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <table class="table table-striped">
+
                         <tr>
                             <td><b>Mesin *</b></td>
                             <td>
@@ -225,61 +414,125 @@
                             <input type="text" name="detailhalaman2" class="form-control format-number" required="">
                         </td>
                     </tr>
-                 <tr>
-                    <td><b>Cetak Isi *</b></td>
-                    <td>
-                        <div class="form-group">
-                            <?php $no=0; foreach ($cetak_oce as $cet) { ?>
-                                <label class="radio-inline">
-                                    <input type="radio" name="cetakisimesin" value="<?php echo $cet['idattributecetak']; ?>" <?php echo ($no==0?'checked=""':''); ?> >
-                                    <?php echo $cet['attributecetak']; ?>
-                                </label>
-                                &nbsp;&nbsp; 
-                                <?php $no++; } ?> 
-                            </div>
-                        </td>
-                        <td><b>Ukuran *</b></td>
+                    <tr>
+                        <td><b>Cetak Isi *</b></td>
                         <td>
                             <div class="form-group">
-                                <?php foreach ($ukuran as $ukur) { ?>
+                                <?php $no=0; foreach ($cetak_oce as $cet) { ?>
                                     <label class="radio-inline">
-                                        <input type="radio" name="ukurancover" value="<?php echo $ukur['idukuran']; ?>" checked="">
-                                        <?php echo $ukur['namaukuran']; ?>
+                                        <input type="radio" name="cetakisimesin" value="<?php echo $cet['idattributecetak']; ?>" <?php echo ($no==0?'checked=""':''); ?> >
+                                        <?php echo $cet['attributecetak']; ?>
                                     </label>
-                                    &nbsp;&nbsp;&nbsp;
-                                <?php } ?> 
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><b>Bahan *</b></td>
-                        <td colspan="3">
-                            <div class="form-group">
-                                <select id="kertasisi2" name="bahanisi" class="form-control select select2-ajax"></select> 
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><b>Finishing *</b> </td>
-                        <td colspan="4">
-                            <div class="form-group"> 
-                               <?php 
-                                            foreach ($finishing as $fin) {
-                                                if (($fin['idfinishing'] % 2) == 1)
-                                                { 
-                                                    echo '<div class="col-sm-6">';
-                                                    echo '<input type="checkbox" name="finishing[]" value="'.$fin['idfinishing'].'">'.$fin['namafinishing'] ;
-                                                    echo '</div>';
-                                                }
+                                    &nbsp;&nbsp; 
+                                    <?php $no++; } ?> 
+                                </div>
+                            </td>
+                            <td><b>Ukuran *</b></td>
+                            <td>
+                                <div class="form-group">
+                                    <?php foreach ($ukuran as $ukur) { ?>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="ukurancover" value="<?php echo $ukur['idukuran']; ?>" checked="">
+                                            <?php echo $ukur['namaukuran']; ?>
+                                        </label>
+                                        &nbsp;&nbsp;&nbsp;
+                                    <?php } ?> 
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Bahan *</b></td>
+                            <td colspan="3">
+                                <div class="form-group">
+                                    <select id="kertasisi2" name="bahanisi" class="form-control select select2-ajax"></select> 
+                                </div>
+                            </td>
+                        </tr>
 
-                                                if (($fin['idfinishing'] % 2) == 0)
-                                                { 
-                                                    echo '<div class="col-sm-6">';
-                                                    echo '<input type="checkbox" name="finishing[]" value="'.$fin['idfinishing'].'">'.$fin['namafinishing'] ;
-                                                    echo '</div>';
-                                                }
-                                          }
-                                          ?>
+
+                        <tr>
+                            <td colspan="3"><b>ISI SISIPAN OCE</b></td>
+                            <!-- <td colspan="3">
+                                <div class="form-group">
+                                    <select id="kertasisi2" name="bahanisi" class="form-control select select2-ajax"></select> 
+                                </div>
+                            </td> -->
+                        </tr>
+
+
+                        <tr>
+                            <td><b>Mesin *</b></td>
+                            <td>
+                                <div class="form-group">
+                                    OCE
+                                    <input type="hidden" name="mesinisi2" value="3" checked="">
+                            <!-- <?php foreach ($mesin as $msn) { ?>
+                                <input type="radio" name="mesinisi2" value="<?php echo $msn['idmesin']; ?>" checked="">
+                                <span class="labels"><?php echo $msn['namamesin']; ?></span>
+                                &nbsp;&nbsp; 
+                                <?php } ?>  -->
+                            </div>
+                        </td>
+                        <td>Detail Halaman *</td>
+                        <td>
+                            <input type="text" name="detailhalaman2" class="form-control format-number" required="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Cetak Isi *</b></td>
+                        <td>
+                            <div class="form-group">
+                                <?php $no=0; foreach ($cetak_oce as $cet) { ?>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="cetakisimesin" value="<?php echo $cet['idattributecetak']; ?>" <?php echo ($no==0?'checked=""':''); ?> >
+                                        <?php echo $cet['attributecetak']; ?>
+                                    </label>
+                                    &nbsp;&nbsp; 
+                                    <?php $no++; } ?> 
+                                </div>
+                            </td>
+                            <td><b>Ukuran *</b></td>
+                            <td>
+                                <div class="form-group">
+                                    <?php foreach ($ukuran as $ukur) { ?>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="ukurancover" value="<?php echo $ukur['idukuran']; ?>" checked="">
+                                            <?php echo $ukur['namaukuran']; ?>
+                                        </label>
+                                        &nbsp;&nbsp;&nbsp;
+                                    <?php } ?> 
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Bahan *</b></td>
+                            <td colspan="3">
+                                <div class="form-group">
+                                    <select id="kertasisi2" name="bahanisi" class="form-control select select2-ajax"></select> 
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Finishing *</b> </td>
+                            <td colspan="4">
+                                <div class="form-group"> 
+                                 <?php 
+                                 foreach ($finishing as $fin) {
+                                    if (($fin['idfinishing'] % 2) == 1)
+                                    { 
+                                        echo '<div class="col-sm-6">';
+                                        echo '<input type="checkbox" name="finishing[]" value="'.$fin['idfinishing'].'">'.$fin['namafinishing'] ;
+                                        echo '</div>';
+                                    }
+
+                                    if (($fin['idfinishing'] % 2) == 0)
+                                    { 
+                                        echo '<div class="col-sm-6">';
+                                        echo '<input type="checkbox" name="finishing[]" value="'.$fin['idfinishing'].'">'.$fin['namafinishing'] ;
+                                        echo '</div>';
+                                    }
+                                }
+                                ?>
                             </div>
                         </td>
                     </td>
@@ -382,7 +635,14 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="3"><b>Cover</b></td>
+                                <td>Ukuran </td>
+                                <td>:</td>
+                                <td>
+                                    <?php echo $items['options']['qty']; ?> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><b>Buku</b></td>
                             </tr>
                             <tr>
                                 <td>Ukuran Cover </td>
