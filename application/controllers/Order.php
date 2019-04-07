@@ -223,21 +223,42 @@ class Order extends CI_Controller {
 
 	public function prosesbook()
 	{
-
 		if (isset($_POST)) {
-			// echo "<pre>";
-			// print_r($_POST);
-			// die();
- 
+			// dd($_POST);
 
+ 			if($_POST['mesin_cover'] == 'A3+') {
+ 				$a = array();
+                $b = array();
+                $a[] = getArrUkuran(1); // 1 id mskertas a3+ 
+                $b[] = [$_POST['panjang'],$_POST['sum']]; // ukuran A3; 
 
+                $hasil = nilai_ukuran($a, $b);
+                for ($i=0; $i<sizeof($hasil); $i++) {
+                    $jumlahnya =  round($hasil[$i][0],0) * round($hasil[$i][1],0);
+                }
+                $total_kertas =  ceil($_POST['qty']/@$jumlahnya);
+ 			} else if($_POST['mesin_cover'] == 'B2') {
+ 				$a = array();
+                $b = array();
+                $a[] = getArrUkuran(7); // 7 id mskertas B2 
+                $b[] = [$_POST['panjang'],$_POST['sum']]; // ukuran A3; 
+                
+                $hasil = nilai_ukuran($a, $b);
+
+                for ($i=0; $i<sizeof((array)$hasil); $i++) {
+                    $jumlahnya =  round($hasil[$i][0],0) * round($hasil[$i][1],0);
+                }
+                $total_kertas =  ceil($_POST['qty']/@$jumlahnya);
+ 			}
+ 			// dd([$total_kertas, $_POST]);
 			$data = array(
 				'id'      => strtotime($this->input->post('orderdate')),
 				'qty'     => $this->input->post('qty'),
 				'price'   => 0,
 				'idcustomer' => $this->input->post('idcustomer'),
 				'name'    => $this->input->post('projectname'),
-				'options' => $_POST
+				'options' => $_POST,
+				'total_kertas' =>$total_kertas
 				//array('Size' => 'L', 'Color' => 'Red')
 			);
 

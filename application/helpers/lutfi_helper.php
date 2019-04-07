@@ -58,10 +58,10 @@ function getArrUkuran($idukuran='')
 function nilai_ukuran($matriks_a, $matriks_b)
 {
 	$hasil = array();
-	for ($i=0; $i<sizeof($matriks_a); $i++) {
-		for ($j=0; $j<sizeof($matriks_b[0]); $j++) {
+	for ($i=0; $i<sizeof((array) $matriks_a); $i++) {
+		for ($j=0; $j<sizeof((array) $matriks_b[0]); $j++) {
 			$temp = 0;
-			for ($k=0; $k<sizeof($matriks_b); $k++) {
+			for ($k=0; $k<sizeof((array) $matriks_b); $k++) {
 				$temp += $matriks_a[$i][$k] / $matriks_b[$k][$j];
 			}
 			$hasil[$i][$j] = $temp;

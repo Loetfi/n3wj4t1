@@ -99,7 +99,7 @@
                                 <div class="container">
                                    <!-- <div class="row"> -->
                                     <div class="col-sm-6"> 
-                                     <form class="form-horizontal">
+                                     <div class="form-horizontal">
                                       <div class="form-group">
                                        <label class="control-label col-sm-2" for="p">P</label>
                                        <div class="col-sm-10">
@@ -151,25 +151,19 @@
                         <tr>
                             <td><b>Mesin Cover*</b></td>
                             <td>
-                                <script type="text/javascript">
-
-                                    function yesnoCheck() {
-                                        if (document.getElementById('indigo').checked) {
-                                            document.getElementById('ifindigo').style.display = 'block';
-                                        }
-                                        else document.getElementById('ifindigo').style.display = 'none';
-
-                                    }
-
-                                </script>
                                 <div class="form-group">
 
-                                    <label class="radio-inline"> <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="indigo"> INDIGO </label>
-                                    <label class="radio-inline"> <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck">OCE </label> 
+                                    <label class="radio-inline"> <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" value="indigo"> INDIGO </label>
+                                    <label class="radio-inline"> <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" value="oce">OCE </label> 
                                     <br>
                                     <div id="ifindigo" style="display:none">
-                                        <label class="radio-inline"> <input type="radio" onclick="javascript:a3plus();" name="a3plus"> A3+ </label>
-                                        <label class="radio-inline"> <input type="radio" onclick="javascript:yesnoCheck();" name="b2"> B2 </label> 
+                                        <label class="radio-inline"> 
+                                            <input type="radio" onclick="javascript:a3plus();" name="mesin_cover" value="A3+"> A3+ 
+                                        </label> <br>
+                                        
+                                        <label class="radio-inline"> 
+                                            <input type="radio" onclick="javascript:yesnoCheck();" name="mesin_cover" value="B2"> B2 
+                                        </label> 
                                         <!-- Ukuran Kertas A3+ n B2 -->
                                     </div>
 
@@ -594,9 +588,9 @@
                             <th>Aksi</th>
                         </tr>
                         <?php $i = 1; ?>
-                        <?php foreach ($this->cart->contents() as $items): ?> 
+                        <?php foreach ($this->cart->contents() as $items): ?>
                             <tr>
-                                <td rowspan="22"> <?php echo $i; ?> </td>
+                                <td rowspan="24"> <?php echo $i; ?> </td>
                                 <td>Nama Proyek</td>
                                 <td width="1%">:</td>
                                 <td>
@@ -632,6 +626,13 @@
                                 <td>:</td>
                                 <td>
                                     <?php echo $items['options']['qty']; ?> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>TOTAL KERTAS = QTY/RUMUS P x L </td>
+                                <td>:</td>
+                                <td>
+                                    <?php echo $items['total_kertas']; ?> 
                                 </td>
                             </tr>
                             <tr>
@@ -1060,8 +1061,16 @@ function check_btn_charge() {
             page:params.page||1,parent:jQuery("#").val(),}},cache:true}});
     
 });
+</script>
 
+<script type="text/javascript">
 
-
-
+    function yesnoCheck() {
+        var value = $("input[name='yesno']:checked").val();
+        if(value == 'indigo') {
+            document.getElementById('ifindigo').style.display = 'block';
+        } else {
+            document.getElementById('ifindigo').style.display = 'none';
+        }
+    }
 </script>
