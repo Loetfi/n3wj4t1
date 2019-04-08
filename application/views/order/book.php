@@ -51,7 +51,7 @@
                             </tr>
                             <tr>
                                 <td><b>Qty</b></td>
-                                <td><input type="text" name="qty" value="0" class="form-control format-number"></td>
+                                <td><input type="text" name="qty" value="0" class="form-control format-number" id="qty"></td>
                             </tr>
                             <tr>
                                 <td colspan="6"><b>BUKU</b></td>
@@ -89,7 +89,7 @@
 
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                       <table class="table table-striped">
+                       <table class="table table-striped" style="width: 100%">
                         <tr>
                             <td colspan="6"><b>COVER</b></td>
                         </tr>
@@ -103,19 +103,19 @@
                                       <div class="form-group">
                                        <label class="control-label col-sm-2" for="p">P</label>
                                        <div class="col-sm-10">
-                                        <input type="number" name="p" id="p" class="form-control" min="0" placeholder="Panjang" required />
+                                        <input type="number" name="p" id="p" class="form-control" min="0" placeholder="Panjang" required step="0.01"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                    <label class="control-label col-sm-2" for="l">L</label>
                                    <div class="col-sm-10">
-                                    <input type="number" name="l" id="l" class="form-control" min="0" placeholder="Lebar" required />
+                                    <input type="number" name="l" id="l" class="form-control" min="0" placeholder="Lebar" required step="0.01"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                <label class="control-label col-sm-2" for="t">T</label>
                                <div class="col-sm-10">
-                                <input type="number" name="t" id="t" class="form-control" min="0" placeholder="Tinggi" required />
+                                <input type="number" name="t" id="t" class="form-control" min="0" placeholder="Tinggi" required step="0.01"/>
                             </div>
                         </div>
 
@@ -126,7 +126,7 @@
                             <input type="number" name="sum" id="sum" class="form-control" readonly />
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
             <!-- </div> -->
             <!-- </div> -->
@@ -158,11 +158,11 @@
                                     <br>
                                     <div id="ifindigo" style="display:none">
                                         <label class="radio-inline"> 
-                                            <input type="radio" onclick="javascript:a3plus();" name="mesin_cover" value="A3+"> A3+ 
+                                            <input type="radio" onchange="penjumlahan_mesin_cover($(this));" name="mesin_cover" value="A3+"> A3+ 
                                         </label> <br>
                                         
                                         <label class="radio-inline"> 
-                                            <input type="radio" onclick="javascript:yesnoCheck();" name="mesin_cover" value="B2"> B2 
+                                            <input type="radio" onchange="penjumlahan_mesin_cover($(this));" name="mesin_cover" value="B2"> B2 
                                         </label> 
                                         <!-- Ukuran Kertas A3+ n B2 -->
                                     </div>
@@ -180,6 +180,14 @@
                                         </label>
                                         &nbsp;&nbsp; 
                                     <?php } ?> 
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Jumlah Kertas</b></td>
+                            <td colspan="3">
+                                <div class="form-group">
+                                    <div id="total_kertas"><b id="b_total_kertas">0</b></div>
                                 </div>
                             </td>
                         </tr>
@@ -1072,5 +1080,29 @@ function check_btn_charge() {
         } else {
             document.getElementById('ifindigo').style.display = 'none';
         }
+    }
+
+    function penjumlahan_mesin_cover(e) {
+        jQuery.ajax({
+            url: app_url+'order/penjumlahan_mesin_cover', 
+            data: {
+                "mesin_cover": e.val(),
+                "qty": jQuery("#qty").val(),
+                "panjang": jQuery("#panjang").val(),
+                "sum": jQuery("#sum").val()
+            },
+            dataType: 'JSON', 
+            type: 'POST', 
+            beforeSend: function(response) {
+                jQuery("#b_total_kertas").remove();
+            },
+            success: function(response) {
+                var html = "<b id='b_total_kertas'>"+response.total_kertas+"</b>";
+                jQuery("#total_kertas").append(html);
+            }, 
+            error:function(response) {
+                console.log(response);
+            }
+        });
     }
 </script>
