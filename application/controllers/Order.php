@@ -58,15 +58,15 @@ class Order extends CI_Controller {
 			// $lemparan = array();
 
 			// $_POST['order'] date("Y-m-d H:i:s" , strtotime($_POST['orderdate']))
- 
+
 			$lemparan = array( 
-					'id'      => strtotime($this->input->post('orderdate')),
-					'qty'     => $this->input->post('qty'),
-					'price'   => 10,
-					'idcustomer' => $this->input->post('idcustomer'),
-					'name'    => $this->input->post('projectname'),
-					'options' => array($_POST)
-				);	
+				'id'      => strtotime($this->input->post('orderdate')),
+				'qty'     => $this->input->post('qty'),
+				'price'   => 10,
+				'idcustomer' => $this->input->post('idcustomer'),
+				'name'    => $this->input->post('projectname'),
+				'options' => array($_POST)
+			);	
 			// print_r($lemparan);
 			$this->cart->insert($lemparan);   
 			$array = array(
@@ -77,7 +77,7 @@ class Order extends CI_Controller {
 			$this->session->set_userdata( $array );
 
 			redirect(site_url('order/card?tipeorder=').@$_POST['tipeorder'].'&deadline='.@$_POST['deadline'],'refresh');
- 
+
 
 		}
 		else {
@@ -107,14 +107,14 @@ class Order extends CI_Controller {
 
 			$data = array(
 				'title' => 'Preview Order Kartu Nama'
-				);
+			);
 
 			$page = 'order/previewcard';
 
 			template($page , $data);
 			
 			// $this->load->view('order/headerbaru', $data, FALSE);
- 
+
 		} else {
 			redirect('order','refresh');
 		}
@@ -226,72 +226,72 @@ class Order extends CI_Controller {
 		if (isset($_POST)) {
 			// dd($_POST);
 
- 			if($_POST['mesin_cover'] == 'A3+') {
- 				$a = array();
-                $b = array();
+			if($_POST['mesin_cover'] == 'A3+') {
+				$a = array();
+				$b = array();
                 $a[] = getArrUkuran(1); // 1 id mskertas a3+ 
                 $b[] = [$_POST['panjang'],$_POST['sum']]; // ukuran A3; 
 
                 $hasil = nilai_ukuran($a, $b);
                 for ($i=0; $i<sizeof($hasil); $i++) {
-                    $jumlahnya =  round($hasil[$i][0],0) * round($hasil[$i][1],0);
+                	$jumlahnya =  round($hasil[$i][0],0) * round($hasil[$i][1],0);
                 }
                 $total_kertas =  ceil($_POST['qty']/@$jumlahnya);
- 			} else if($_POST['mesin_cover'] == 'B2') {
- 				$a = array();
-                $b = array();
+            } else if($_POST['mesin_cover'] == 'B2') {
+            	$a = array();
+            	$b = array();
                 $a[] = getArrUkuran(7); // 7 id mskertas B2 
                 $b[] = [$_POST['panjang'],$_POST['sum']]; // ukuran A3; 
                 
                 $hasil = nilai_ukuran($a, $b);
 
                 for ($i=0; $i<sizeof((array)$hasil); $i++) {
-                    $jumlahnya =  round($hasil[$i][0],0) * round($hasil[$i][1],0);
+                	$jumlahnya =  round($hasil[$i][0],0) * round($hasil[$i][1],0);
                 }
                 $total_kertas =  ceil($_POST['qty']/@$jumlahnya);
- 			}
+            }
  			// dd([$total_kertas, $_POST]);
-			$data = array(
-				'id'      => strtotime($this->input->post('orderdate')),
-				'qty'     => $this->input->post('qty'),
-				'price'   => 0,
-				'idcustomer' => $this->input->post('idcustomer'),
-				'name'    => $this->input->post('projectname'),
-				'options' => $_POST,
-				'total_kertas' =>$total_kertas
+            $data = array(
+            	'id'      => strtotime($this->input->post('orderdate')),
+            	'qty'     => $this->input->post('qty'),
+            	'price'   => 0,
+            	'idcustomer' => $this->input->post('idcustomer'),
+            	'name'    => $this->input->post('projectname'),
+            	'options' => $_POST,
+            	'total_kertas' =>$total_kertas
 				//array('Size' => 'L', 'Color' => 'Red')
-			);
+            );
 
-			$this->cart->insert($data); 
+            $this->cart->insert($data); 
 
 
-			$array = array(
-				'projectname' => $this->input->post('projectname'),
-				'idcustomer' => $this->input->post('idcustomer'),
-				'sales' => $this->input->post('sales'),
-			);
-			
-			$this->session->set_userdata( $array );
+            $array = array(
+            	'projectname' => $this->input->post('projectname'),
+            	'idcustomer' => $this->input->post('idcustomer'),
+            	'sales' => $this->input->post('sales'),
+            );
+
+            $this->session->set_userdata( $array );
 			// print_r($data);
 			// print_r($this->cart->contents());
 			// exit();
 			// redirect('order/card?tipeorder='.@$_POST['tipeorder'].'&deadline='.@$_POST['deadline'],'refresh');
 
-			redirect('order/book?tipeorder='.@$_POST['tipeorder'].'&deadline='.@$_POST['deadline'],'refresh');
+            redirect('order/book?tipeorder='.@$_POST['tipeorder'].'&deadline='.@$_POST['deadline'],'refresh');
 
 			// print_r($this->cart->contents());
-		}
-		else {
-			redirect('order','refresh');
-		}
-	}
+        }
+        else {
+        	redirect('order','refresh');
+        }
+    }
 
 	// preview book 
-	public function previewbook()
-	{ 
-		if (isset($_POST)) {
+    public function previewbook()
+    { 
+    	if (isset($_POST)) {
 
-			$header = array(
+    		$header = array(
 				'customerid' 	=> $this->session->userdata('idcustomer'),//$items['options']['0']['idcustomer'], 
 				'tipeorder' 	=> 'book',
 				'deadline' 		=> @date('Y-m-d',strtotime($this->input->get('deadline'))),
@@ -299,32 +299,32 @@ class Order extends CI_Controller {
 				'tglorder'		=> date('Y-m-d H:i:s')
 			);
 
-			$array = array(
-				'cardheader' => $header
-			);
-			
-			$this->session->set_userdata( $array ); 
+    		$array = array(
+    			'cardheader' => $header
+    		);
 
-			$data = array(
-				'title' => 'Preview Order Book'
-			);
+    		$this->session->set_userdata( $array ); 
 
-			$page = 'order/previewbook';
+    		$data = array(
+    			'title' => 'Preview Order Book'
+    		);
 
-			template($page , $data);
-			
+    		$page = 'order/previewbook';
+
+    		template($page , $data);
+
 			// $this->load->view('order/headerbaru', $data, FALSE);
- 
-		} else {
-			redirect('order','refresh');
-		}
-	}
 
-	public function savebook()
-	{
-		if (isset($_POST)) {	
+    	} else {
+    		redirect('order','refresh');
+    	}
+    }
+
+    public function savebook()
+    {
+    	if (isset($_POST)) {	
 			// print_r($this->session->all_userdata());
-			$header = array(
+    		$header = array(
 				'customerid' 	=> $this->session->userdata('idcustomer'),//$items['options']['0']['idcustomer'], 
 				'tipeorder' => 'book',
 				'deadline' => @date('Y-m-d',strtotime($this->input->get('deadline'))),
@@ -333,8 +333,8 @@ class Order extends CI_Controller {
 				'sales'		=> $this->session->userdata('sales')
 			);
 		// print_r($header);
-			$this->db->insert('trorder' , $header);
-			$id = $this->db->insert_id();
+    		$this->db->insert('trorder' , $header);
+    		$id = $this->db->insert_id();
 
 			// print_r($header);
 			// exit();
@@ -343,36 +343,36 @@ class Order extends CI_Controller {
 			// exit();
 
 
-			foreach ($this->cart->contents() as $items){
+    		foreach ($this->cart->contents() as $items){
 
-				$insert = array(
-					'trorderid'		=> $id ,  
+    			$insert = array(
+    				'trorderid'		=> $id ,  
 					// 'projectname' => $items['options']['projectname'],
-					'sales' => $items['options']['sales'],
+    				'sales' => $items['options']['sales'],
 					// 'orderdate' => $items['options']['orderdate'],
-					'customerid' => $items['options']['idcustomer'],
-					'qty' => $items['options']['qty'],
-					'ukurancover' => $items['options']['ukurancover'],
-					'mesincover' => $items['options']['mesincover'],
-					'cetakcover' => $items['options']['cetakcover'],
-					'bahancover' => $items['options']['bahancover'], 
-					'laminatingcover' => $items['options']['laminatingcover'],
-					'banyakhalamanisi' => $items['options']['banyakhalamanisi'],
-					'cetakisi' => $items['options']['cetakisi'],
-					'detailhalaman1' => $items['options']['detailhalaman1'],
-					'mesinisi1' => $items['options']['mesinisi1'],
-					'detailhalaman2' => $items['options']['detailhalaman2'],
-					'mesinisi2' => $items['options']['mesinisi2'],
-					'bahanisi' => $items['options']['bahanisi'],
-					'finishing1' => implode(',', $items['options']['finishing']),
-					'notes' => $items['options']['notes'],
-					'cetak' => $items['options']['cetakcover'], 
-					'kertas' => $items['options']['bahancover'], 
-					'laminating' => $items['options']['laminatingcover'],
-					'satuanproject' => $items['options']['satuanproject'], 
-				);
-				$this->db->insert('trorderdetail' , $insert);
-			}
+    				'customerid' => $items['options']['idcustomer'],
+    				'qty' => $items['options']['qty'],
+    				'ukurancover' => $items['options']['ukurancover'],
+    				'mesincover' => $items['options']['mesincover'],
+    				'cetakcover' => $items['options']['cetakcover'],
+    				'bahancover' => $items['options']['bahancover'], 
+    				'laminatingcover' => $items['options']['laminatingcover'],
+    				'banyakhalamanisi' => $items['options']['banyakhalamanisi'],
+    				'cetakisi' => $items['options']['cetakisi'],
+    				'detailhalaman1' => $items['options']['detailhalaman1'],
+    				'mesinisi1' => $items['options']['mesinisi1'],
+    				'detailhalaman2' => $items['options']['detailhalaman2'],
+    				'mesinisi2' => $items['options']['mesinisi2'],
+    				'bahanisi' => $items['options']['bahanisi'],
+    				'finishing1' => implode(',', $items['options']['finishing']),
+    				'notes' => $items['options']['notes'],
+    				'cetak' => $items['options']['cetakcover'], 
+    				'kertas' => $items['options']['bahancover'], 
+    				'laminating' => $items['options']['laminatingcover'],
+    				'satuanproject' => $items['options']['satuanproject'], 
+    			);
+    			$this->db->insert('trorderdetail' , $insert);
+    		}
 
 				// $insert = array(
 				// 	'trorderid'		=> $id ,  
@@ -388,42 +388,42 @@ class Order extends CI_Controller {
 				// );
 
 				// print_r($insert);
-				$this->session->set_flashdata('message_system', '<div class="alert alert-success"> Berhasil Menambahkan Data </div>');
+    		$this->session->set_flashdata('message_system', '<div class="alert alert-success"> Berhasil Menambahkan Data </div>');
 
 			// menghapus nama project 
-				$this->session->unset_userdata('projectname');
-				$this->session->unset_userdata('idcustomer');
-				$this->session->unset_userdata('sales');
+    		$this->session->unset_userdata('projectname');
+    		$this->session->unset_userdata('idcustomer');
+    		$this->session->unset_userdata('sales');
 			// menghapus cart
-				$this->cart->destroy();
+    		$this->cart->destroy();
 
-				redirect('order/book','refresh');
-
-			
-		} else {
-			echo "gagal !";
-		}
-	}
+    		redirect('order/book','refresh');
 
 
-	public function removebook($rowid = '' , $projectname = '')
-	{
-		$data = array(
-			'rowid' => $rowid,
-			'qty'   => 0
-		);
+    	} else {
+    		echo "gagal !";
+    	}
+    }
 
-		$this->cart->update($data);
-		$this->session->set_flashdata('message_system', '<div class="alert alert-success"> Berhasil Menghapus Orderan di Keranjang </div>');
-		redirect('order/book?projectname='.$projectname,'refresh');
-	}
+
+    public function removebook($rowid = '' , $projectname = '')
+    {
+    	$data = array(
+    		'rowid' => $rowid,
+    		'qty'   => 0
+    	);
+
+    	$this->cart->update($data);
+    	$this->session->set_flashdata('message_system', '<div class="alert alert-success"> Berhasil Menghapus Orderan di Keranjang </div>');
+    	redirect('order/book?projectname='.$projectname,'refresh');
+    }
 
 
 	######################## BUKU ########################
 
 
-	public function custom()
-	{
+    public function custom()
+    {
 		// $this->load->library('AZApp');
 		// $azapp = $this->azapp; 
 		// $data_header['title'] = 'ORDER';
@@ -431,92 +431,92 @@ class Order extends CI_Controller {
 		// $azapp->set_data_header($data_header);
 
 		// echo $azapp->render();
-		$data = array();
-		$this->load->view('order/headerbaru', $data, FALSE);
-		$this->load->view('order/custom', $data, FALSE);
-	}
+    	$data = array();
+    	$this->load->view('order/headerbaru', $data, FALSE);
+    	$this->load->view('order/custom', $data, FALSE);
+    }
 
 	#### POD 
-	public function pod()
-	{	
-		read_access();
-		$data['title'] = "Order POD";
+    public function pod()
+    {	
+    	read_access();
+    	$data['title'] = "Order POD";
 
-		$data['ukuran'] = $this->db->query('select * from msukuran')->result_array();
-		$data['sales'] = $this->db->query('select * from mssales where status = 1')->result_array();
-		$data['finishing'] = $this->db->query('select * from msfinishing')->result_array();
-		
-		$data['mesin'] = $this->db->query("SELECT * from msmesin where status = 1 and pod = 1")->result_array();
+    	$data['ukuran'] = $this->db->query('select * from msukuran')->result_array();
+    	$data['sales'] = $this->db->query('select * from mssales where status = 1')->result_array();
+    	$data['finishing'] = $this->db->query('select * from msfinishing')->result_array();
+
+    	$data['mesin'] = $this->db->query("SELECT * from msmesin where status = 1 and pod = 1")->result_array();
 
 		// lemparan 
-		$data['cetak'] = $this->db->query('select * from msattrcetak where isoce = 0')->result_array();
+    	$data['cetak'] = $this->db->query('select * from msattrcetak where isoce = 0')->result_array();
 		// print_r($data['cetak']);
 		// exit();
-		$data['finishing'] = $this->db->query('select * from msfinishing')->result_array();
-		$data['laminating'] = $this->db->query('select * from mslaminating')->result_array();	
+    	$data['finishing'] = $this->db->query('select * from msfinishing')->result_array();
+    	$data['laminating'] = $this->db->query('select * from mslaminating')->result_array();	
 
 		// print on demand 
 		// $data = array();
 		// $this->load->view('order/headerbaru', $data);
 		// $this->load->view('order/pod', $data);
-		if (isset($_GET['reset'])) {
-			$this->cart->destroy(); 
-			redirect('order/pod','refresh');
-		}
+    	if (isset($_GET['reset'])) {
+    		$this->cart->destroy(); 
+    		redirect('order/pod','refresh');
+    	}
 
-		$page = 'order/pod';
-		template($page , $data);
+    	$page = 'order/pod';
+    	template($page , $data);
 
 
 		// echo "Halaman Order";		
-	}
+    }
 
-	public function removepod($rowid = '' , $projectname = '')
-	{
-		$data = array(
-			'rowid' => $rowid,
-			'qty'   => 0
-		);
+    public function removepod($rowid = '' , $projectname = '')
+    {
+    	$data = array(
+    		'rowid' => $rowid,
+    		'qty'   => 0
+    	);
 
-		$this->cart->update($data);
-		$this->session->set_flashdata('message_system', '<div class="alert alert-success"> Berhasil Menghapus Orderan di Keranjang </div>');
-		redirect('order/pod?projectname='.$projectname,'refresh');
-	}
+    	$this->cart->update($data);
+    	$this->session->set_flashdata('message_system', '<div class="alert alert-success"> Berhasil Menghapus Orderan di Keranjang </div>');
+    	redirect('order/pod?projectname='.$projectname,'refresh');
+    }
 
 
-	public function prosespod()
-	{
+    public function prosespod()
+    {
 		// echo "<pre>";
-		if (isset($_POST)) { 
+    	if (isset($_POST)) { 
 			// if (isset($_POST)) {  
 			// $lemparan = array();
 
 			// $_POST['order'] date("Y-m-d H:i:s" , strtotime($_POST['orderdate']))
- 
-			$lemparan = array( 
-					'id'      => strtotime($this->input->post('orderdate')),
-					'qty'     => $this->input->post('qty'),
-					'price'   => 0,
-					'idcustomer' => $this->input->post('idcustomer'),
-					'name'    => $this->input->post('projectname'),
-					'options' => array($_POST)
-				);	
+
+    		$lemparan = array( 
+    			'id'      => strtotime($this->input->post('orderdate')),
+    			'qty'     => $this->input->post('qty'),
+    			'price'   => 0,
+    			'idcustomer' => $this->input->post('idcustomer'),
+    			'name'    => $this->input->post('projectname'),
+    			'options' => array($_POST)
+    		);	
 			// print_r($lemparan);
-			$this->cart->insert($lemparan);   
-			$array = array(
-				'projectname' => $this->input->post('projectname'),
-				'idcustomer' => $this->input->post('idcustomer')
-			);
-			
-			$this->session->set_userdata( $array );
+    		$this->cart->insert($lemparan);   
+    		$array = array(
+    			'projectname' => $this->input->post('projectname'),
+    			'idcustomer' => $this->input->post('idcustomer')
+    		);
 
-			redirect(site_url('order/pod?tipeorder=').@$_POST['tipeorder'].'&deadline='.@$_POST['deadline'],'refresh');
- 
+    		$this->session->set_userdata( $array );
 
-		}
-		else {
-			redirect('order','refresh');
-		}
+    		redirect(site_url('order/pod?tipeorder=').@$_POST['tipeorder'].'&deadline='.@$_POST['deadline'],'refresh');
+
+
+    	}
+    	else {
+    		redirect('order','refresh');
+    	}
 		/*
 		// echo "<pre>";
 		if (isset($_POST)) {  
@@ -573,14 +573,14 @@ class Order extends CI_Controller {
 
 			$data = array(
 				'title' => 'Preview POD'
-				);
+			);
 
 			$page = 'order/previewpod';
 
 			template($page , $data);
 			
 			// $this->load->view('order/headerbaru', $data, FALSE);
- 
+
 		} else {
 			redirect('order','refresh');
 		}
@@ -600,7 +600,7 @@ class Order extends CI_Controller {
 
 			$this->db->insert('trorder' , $header);
 			$id = $this->db->insert_id();
- 
+
 
 			foreach ($this->cart->contents() as $items): 
 
@@ -698,15 +698,15 @@ class Order extends CI_Controller {
 			// $lemparan = array();
 
 			// $_POST['order'] date("Y-m-d H:i:s" , strtotime($_POST['orderdate']))
- 
+
 			$lemparan = array( 
-					'id'      => strtotime($this->input->post('orderdate')),
-					'qty'     => $this->input->post('qty'),
-					'price'   => 0,
-					'idcustomer' => $this->input->post('idcustomer'),
-					'name'    => $this->input->post('projectname'),
-					'options' => array($_POST)
-				);	
+				'id'      => strtotime($this->input->post('orderdate')),
+				'qty'     => $this->input->post('qty'),
+				'price'   => 0,
+				'idcustomer' => $this->input->post('idcustomer'),
+				'name'    => $this->input->post('projectname'),
+				'options' => array($_POST)
+			);	
 			// print_r($lemparan);
 			$this->cart->insert($lemparan);   
 			$array = array(
@@ -717,7 +717,7 @@ class Order extends CI_Controller {
 			$this->session->set_userdata( $array );
 
 			redirect(site_url('order/okl?tipeorder=').@$_POST['tipeorder'].'&deadline='.@$_POST['deadline'],'refresh');
- 
+
 
 		}
 		else {
@@ -745,14 +745,14 @@ class Order extends CI_Controller {
 
 			$data = array(
 				'title' => 'Preview OKL'
-				);
+			);
 
 			$page = 'order/previewokl';
 
 			template($page , $data);
 			
 			// $this->load->view('order/headerbaru', $data, FALSE);
- 
+
 		} else {
 			redirect('order','refresh');
 		}
@@ -772,7 +772,7 @@ class Order extends CI_Controller {
 
 			$this->db->insert('trorder' , $header);
 			$id = $this->db->insert_id();
- 
+
 
 			foreach ($this->cart->contents() as $items): 
 
@@ -847,31 +847,43 @@ class Order extends CI_Controller {
 	{
 		if($_POST['mesin_cover'] == 'A3+') {
 			$a = array();
-            $b = array();
+			$b = array();
             $a[] = getArrUkuran(1); // 1 id mskertas a3+ 
             $b[] = [$_POST['panjang'],$_POST['sum']]; // ukuran A3; 
 
             $hasil = nilai_ukuran($a, $b);
             for ($i=0; $i<sizeof($hasil); $i++) {
-                $jumlahnya =  round($hasil[$i][0],0) * round($hasil[$i][1],0);
+            	$jumlahnya =  round($hasil[$i][0],0) * round($hasil[$i][1],0);
             }
             $total_kertas =  ceil($_POST['qty']/@$jumlahnya);
-		} else if($_POST['mesin_cover'] == 'B2') {
-				$a = array();
-            $b = array();
+        } else if($_POST['mesin_cover'] == 'B2') {
+        	$a = array();
+        	$b = array();
             $a[] = getArrUkuran(7); // 7 id mskertas B2 
             $b[] = [$_POST['panjang'],$_POST['sum']]; // ukuran A3; 
             
             $hasil = nilai_ukuran($a, $b);
 
             for ($i=0; $i<sizeof((array)$hasil); $i++) {
-                $jumlahnya =  round($hasil[$i][0],0) * round($hasil[$i][1],0);
+            	$jumlahnya =  round($hasil[$i][0],0) * round($hasil[$i][1],0);
             }
             $total_kertas =  ceil($_POST['qty']/@$jumlahnya);
-		}
+        } else if($_POST['mesin_cover'] == 'A3') {
+        	$a = array();
+        	$b = array();
+            $a[] = getArrUkuran(6); // 7 id mskertas B2 
+            $b[] = [$_POST['panjang'],$_POST['sum']]; // ukuran A3; 
+            
+            $hasil = nilai_ukuran($a, $b);
 
-		echo json_encode(['total_kertas'=>$total_kertas]);
-	}
+            for ($i=0; $i<sizeof((array)$hasil); $i++) {
+            	$jumlahnya =  round($hasil[$i][0],0) * round($hasil[$i][1],0);
+            }
+            $total_kertas =  ceil($_POST['qty']/@$jumlahnya);
+        }
+
+        echo json_encode(['total_kertas'=>$total_kertas]);
+    }
 }
 
 /* End of file Order.php */

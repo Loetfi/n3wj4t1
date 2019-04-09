@@ -160,6 +160,10 @@
                                         <label class="radio-inline"> 
                                             <input type="radio" onchange="penjumlahan_mesin_cover($(this));" name="mesin_cover" value="A3+"> A3+ 
                                         </label> <br>
+
+                                        <label class="radio-inline"> 
+                                            <input type="radio" onchange="penjumlahan_mesin_cover($(this));" name="mesin_cover" value="A3"> A3 
+                                        </label> <br>
                                         
                                         <label class="radio-inline"> 
                                             <input type="radio" onchange="penjumlahan_mesin_cover($(this));" name="mesin_cover" value="B2"> B2 
@@ -170,17 +174,7 @@
                                     <div id="ifindigo" style="display:none">
                                         Ukuran Kertas A3+
                                     </div>
-                                </div> 
-
-                                <div class="form-group">
-                                    <?php foreach ($mesin as $msn) { ?>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="mesincover" value="<?php echo $msn['idmesin']; ?>" checked="">
-                                            <?php echo $msn['namamesin']; ?>
-                                        </label>
-                                        &nbsp;&nbsp; 
-                                    <?php } ?> 
-                                </div>
+                                </div>  
                             </td>
                         </tr>
                         <tr>

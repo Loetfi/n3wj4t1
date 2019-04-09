@@ -39,12 +39,12 @@
                                         $a[] = ['29.7','42.0']; // ukuran A3; 
                                         $b[] = getArrUkuran($ambildetail['mesincover']); 
                                         // dd($b);
-                                        $hasil = nilai_ukuran($a, $b);
+                                        $hasil = @nilai_ukuran($a, $b);
 
                                         for ($i=0; $i<sizeof($hasil); $i++) {
                                             $jumlahnya =  round($hasil[$i][0],0) * round($hasil[$i][1],0);
                                         }
-                                        echo ceil($ambildetail['qty']/@$jumlahnya);
+                                        echo ceil(@$ambildetail['qty']/@$jumlahnya);
                                     ?> 
 								</td> 
 								<!-- <td></td>  -->
