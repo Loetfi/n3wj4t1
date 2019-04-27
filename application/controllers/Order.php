@@ -353,7 +353,8 @@ class Order extends CI_Controller {
     				'customerid' => $items['options']['idcustomer'],
     				'qty' => $items['options']['qty'],
     				'ukurancover' => $items['options']['ukurancover'],
-    				'mesincover' => $items['options']['mesincover'],
+    				// 'mesincover' => $items['options']['mesincover'], 
+    				'mesincover' => $items['options']['mesinisi1'], // ini berubah jadi mesinisi1 sebelumnya mesinvocer
     				'cetakcover' => $items['options']['cetakcover'],
     				'bahancover' => $items['options']['bahancover'], 
     				'laminatingcover' => $items['options']['laminatingcover'],
@@ -370,6 +371,7 @@ class Order extends CI_Controller {
     				'kertas' => $items['options']['bahancover'], 
     				'laminating' => $items['options']['laminatingcover'],
     				'satuanproject' => $items['options']['satuanproject'], 
+    				'total_kertas' => $items['total_kertas'], 
     			);
     			$this->db->insert('trorderdetail' , $insert);
     		}

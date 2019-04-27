@@ -45,7 +45,7 @@
                         <?php $i = 1; ?> 
                         <?php foreach ($this->cart->contents() as $items): ?> 
                              <tr>
-                                <td rowspan="23"> <?php echo $i; ?> </td>
+                                <td rowspan="24"> <?php echo $i; ?> </td>
                                 <td>Nama Proyek</td>
                                 <td width="1%">:</td>
                                 <td>
@@ -84,6 +84,13 @@
                                 <td colspan="3"><b>Cover</b></td>
                             </tr>
                             <tr>
+                                <td>Mesin Cover </td>
+                                <td>:</td>
+                                <td>
+                                    <?php echo getMesin($items['options']['mesinisi1']); ?> 
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Ukuran Cover </td>
                                 <td>:</td>
                                 <td>
@@ -91,10 +98,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Mesin Cover </td>
+                                <td>TOTAL KERTAS = QTY/RUMUS P x L </td>
                                 <td>:</td>
                                 <td>
-                                    <?php echo getMesin($items['options']['mesincover']); ?> 
+                                    <?php echo $items['total_kertas']; ?> 
                                 </td>
                             </tr>
                             <tr>
@@ -202,7 +209,7 @@
                                         $a = array();
                                         $b = array();
                                         $a[] = ['29.7','42.0']; // ukuran A3; 
-                                        $b[] = getArrUkuran($items['options']['mesincover']); 
+                                        $b[] = getArrUkuran($items['options']['mesinisi1']); 
                                         // dd($b);
                                         $hasil = nilai_ukuran($a, $b);
 

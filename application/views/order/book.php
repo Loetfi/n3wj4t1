@@ -648,6 +648,14 @@
                                 <td colspan="3"><b>Buku</b></td>
                             </tr>
                             <tr>
+                                <td>Mesin Cover </td>
+                                <td>:</td>
+                                <td>
+                                    <!-- <?php echo $items['options']['mesin_cover']; ?>  -->
+                                    <?php echo getMesin($items['options']['mesinisi1']); ?> 
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Ukuran Cover </td>
                                 <td>:</td>
                                 <td>
@@ -655,10 +663,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Mesin Cover </td>
+                                <td>TOTAL KERTAS = QTY/RUMUS P x L </td>
                                 <td>:</td>
                                 <td>
-                                    <?php echo getMesin($items['options']['mesincover']); ?> 
+                                    <?php echo $items['total_kertas']; ?> 
                                 </td>
                             </tr>
                             <tr>
