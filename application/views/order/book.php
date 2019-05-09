@@ -89,7 +89,7 @@
 
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                       <table class="table table-striped" style="width: 100%">
+                     <table class="table table-striped" style="width: 100%">
                         <tr>
                             <td colspan="6"><b>COVER</b></td>
                         </tr>
@@ -97,39 +97,39 @@
                             <td><b>Ukuran Media *</b></td>
                             <td colspan="6">
                                 <div class="container">
-                                   <!-- <div class="row"> -->
+                                 <!-- <div class="row"> -->
                                     <div class="col-sm-6"> 
-                                     <div class="form-horizontal">
-                                      <div class="form-group">
-                                       <label class="control-label col-sm-2" for="p">P</label>
-                                       <div class="col-sm-10">
-                                        <input type="number" name="p" id="p" class="form-control" min="0" placeholder="Panjang" required step="0.01"/>
+                                       <div class="form-horizontal">
+                                          <div class="form-group">
+                                             <label class="control-label col-sm-2" for="p">P</label>
+                                             <div class="col-sm-10">
+                                                <input type="number" name="p" id="p" class="form-control" min="0" placeholder="Panjang" required step="0.01"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                         <label class="control-label col-sm-2" for="l">L</label>
+                                         <div class="col-sm-10">
+                                            <input type="number" name="l" id="l" class="form-control" min="0" placeholder="Lebar" required step="0.01"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                     <label class="control-label col-sm-2" for="t">T</label>
+                                     <div class="col-sm-10">
+                                        <input type="number" name="t" id="t" class="form-control" min="0" placeholder="Tinggi" required step="0.01"/>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
-                                   <label class="control-label col-sm-2" for="l">L</label>
-                                   <div class="col-sm-10">
-                                    <input type="number" name="l" id="l" class="form-control" min="0" placeholder="Lebar" required step="0.01"/>
+                                 <label class="control-label col-sm-2" for="sum">Ukuran Jadi</label>
+                                 <div class="col-sm-10">
+                                    <input type="number" name="panjang" id="panjang" class="form-control" readonly />x
+                                    <input type="number" name="sum" id="sum" class="form-control" readonly />
                                 </div>
                             </div>
-                            <div class="form-group">
-                               <label class="control-label col-sm-2" for="t">T</label>
-                               <div class="col-sm-10">
-                                <input type="number" name="t" id="t" class="form-control" min="0" placeholder="Tinggi" required step="0.01"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                           <label class="control-label col-sm-2" for="sum">Ukuran Jadi</label>
-                           <div class="col-sm-10">
-                            <input type="number" name="panjang" id="panjang" class="form-control" readonly />x
-                            <input type="number" name="sum" id="sum" class="form-control" readonly />
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- </div> -->
-            <!-- </div> -->
+                    <!-- </div> -->
+                    <!-- </div> -->
 
 
                                 <!-- P: <input type="text" name="" class="aform-control-static ">
@@ -185,82 +185,82 @@
                                 </div>
                             </td>
                         </tr>
-                            <script type="text/javascript">
-          $(function(){
-            $('#p, #l , #t').keyup(function(){
-               var p = parseFloat($('#p').val()) || 0;
-               var l = parseFloat($('#l').val()) || 0;
-               var t = parseFloat($('#t').val()) || 0;
+                        <script type="text/javascript">
+                          $(function(){
+                            $('#p, #l , #t').keyup(function(){
+                             var p = parseFloat($('#p').val()) || 0;
+                             var l = parseFloat($('#l').val()) || 0;
+                             var t = parseFloat($('#t').val()) || 0;
                // $('#sum').val(p * l * t);
                // $('#sum').val(p * (2*l+t) );
                $('#panjang').val(p);
                $('#sum').val(l+l+t);
-            });
-         });
-      </script>
+           });
+                        });
+                    </script>
+                    <tr>
+                        <td><b>Cetak Cover</b></td>
+                        <td>
+                            <div class="form-group">
+                                <?php $no=0; foreach ($cetak as $cet) { ?>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="cetakcover" value="<?php echo $cet['idattributecetak']; ?>" <?php echo ($no==0?'checked=""':''); ?> >
+                                        <?php echo $cet['attributecetak']; ?>
+                                    </label> 
+                                    &nbsp;&nbsp; 
+                                    <?php $no++; } ?>  
+                                </div>
+                            </td>
+                        </tr> 
                         <tr>
-                            <td><b>Cetak Cover</b></td>
+                            <td><b>Bahan Cover</b></td>
+                            <td colspan="3">
+                                <div class="form-group">
+                                    <select id="kertas" name="bahancover" required="" class="form-control select select2-ajax"></select> 
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Laminating Cover</b></td>
                             <td>
                                 <div class="form-group">
-                                    <?php $no=0; foreach ($cetak as $cet) { ?>
+                                    <?php $i=0; foreach ($laminating as $lam) { ?>
                                         <label class="radio-inline">
-                                            <input type="radio" name="cetakcover" value="<?php echo $cet['idattributecetak']; ?>" <?php echo ($no==0?'checked=""':''); ?> >
-                                            <?php echo $cet['attributecetak']; ?>
+                                            <input type="radio" name="laminatingcover" value="<?php echo $lam['idlaminating'] ?>" <?php echo ($i==0?'checked=""':''); ?> >
+                                            <?php echo $lam['namalaminating']; ?>
                                         </label> 
                                         &nbsp;&nbsp; 
-                                        <?php $no++; } ?>  
-                                    </div>
-                                </td>
-                            </tr> 
-                            <tr>
-                                <td><b>Bahan Cover</b></td>
-                                <td colspan="3">
-                                    <div class="form-group">
-                                        <select id="kertas" name="bahancover" required="" class="form-control select select2-ajax"></select> 
+                                        <?php $i++; } ?>   
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>Laminating Cover</b></td>
-                                <td>
-                                    <div class="form-group">
-                                        <?php $i=0; foreach ($laminating as $lam) { ?>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="laminatingcover" value="<?php echo $lam['idlaminating'] ?>" <?php echo ($i==0?'checked=""':''); ?> >
-                                                <?php echo $lam['namalaminating']; ?>
-                                            </label> 
-                                            &nbsp;&nbsp; 
-                                            <?php $i++; } ?>   
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><b>Qty Cover</b></td>
-                                    <td><input type="text" name="qtycover" value="0" class="form-control format-number"></td>
-                                </tr>
-                            </table>
-                        </div>
+                                <td><b>Qty Cover</b></td>
+                                <td><input type="text" name="qtycover" value="0" class="form-control format-number"></td>
+                            </tr>
+                        </table>
                     </div>
+                </div>
 
-                    <div class="panel panel-primary">
-                        <div class="panel-body">
-                            <table class="table table-striped">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <table class="table table-striped">
 
 
-                                <tr>
-                                    <td colspan="6"><b>ISI</b></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Banyak Halaman *</b></td>
-                                    <td>
-                                        <input type="text" name="banyakhalamanisi" class="form-control format-number" required="">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><b>Mesin *</b></td>
-                                    <td>
-                                        INDIGO
-                                        <input type="hidden" name="mesinisi1" value="1">
+                            <tr>
+                                <td colspan="6"><b>ISI</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Banyak Halaman *</b></td>
+                                <td>
+                                    <input type="text" name="banyakhalamanisi" class="form-control format-number" required="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Mesin *</b></td>
+                                <td>
+                                    INDIGO
+                                    <input type="hidden" name="mesinisi1" value="1">
                         <!-- <div class="form-group">
                             <?php foreach ($mesin as $msn) { ?>
                             <input type="radio" name="mesinisi1" value="<?php echo $msn['idmesin']; ?>" checked="">
@@ -379,7 +379,7 @@
                             <td><b>Bahan *</b></td>
                             <td colspan="3">
                                 <div class="form-group">
-                                    <select id="kertasisi" name="bahanisi" class="form-control select select2-ajax"></select> 
+                                    <select id="kertasisi4" name="bahanisi" class="form-control select select2-ajax"></select> 
                                 </div>
                             </td>
                         </tr>
@@ -504,7 +504,7 @@
                             <td><b>Bahan *</b></td>
                             <td colspan="3">
                                 <div class="form-group">
-                                    <select id="kertasisi2" name="bahanisi" class="form-control select select2-ajax"></select> 
+                                    <select id="kertasisi3" name="bahanisi" class="form-control select select2-ajax"></select> 
                                 </div>
                             </td>
                         </tr>
@@ -512,8 +512,8 @@
                             <td><b>Finishing *</b> </td>
                             <td colspan="4">
                                 <div class="form-group"> 
-                                 <?php 
-                                 foreach ($finishing as $fin) {
+                                   <?php 
+                                   foreach ($finishing as $fin) {
                                     if (($fin['idfinishing'] % 2) == 1)
                                     { 
                                         echo '<div class="col-sm-6">';
@@ -1057,6 +1057,18 @@ function check_btn_charge() {
           return{
             term:params.term,
             page:params.page||1,parent:jQuery("#").val(),}},cache:true}});
+
+    jQuery("#kertasisi4").select2({placeholder:"~ Pilih Kertas ~",
+      allowClear:true,minimumInputLength:0,
+      required:"",
+      ajax:{
+        url:"<?php echo site_url('json/product')?>",
+        dataType:"json",
+        delay:250,
+        data:function(params){
+          return{
+            term:params.term,
+            page:params.page||1,parent:jQuery("#").val(),}},cache:true}});
     
     jQuery("#kertasisi2").select2({placeholder:"~ Pilih Kertas ~",
       allowClear:true,minimumInputLength:0,
@@ -1069,8 +1081,21 @@ function check_btn_charge() {
           return{
             term:params.term,
             page:params.page||1,parent:jQuery("#").val(),}},cache:true}});
+
+    jQuery("#kertasisi3").select2({placeholder:"~ Pilih Kertas ~",
+      allowClear:true,minimumInputLength:0,
+      required:"",
+      ajax:{
+        url:"<?php echo site_url('json/product')?>",
+        dataType:"json",
+        delay:250,
+        data:function(params){
+          return{
+            term:params.term,
+            page:params.page||1,parent:jQuery("#").val(),}},cache:true}});
     
 });
+
 </script>
 
 <script type="text/javascript">
